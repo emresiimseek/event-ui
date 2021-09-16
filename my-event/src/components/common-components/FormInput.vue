@@ -44,8 +44,3 @@ export default class FormInput extends BaseComponent {
   }
 }
 </script>
-<style scoped>
-.custom-search-input {
-  padding: 0 !important;
-}
-</style>

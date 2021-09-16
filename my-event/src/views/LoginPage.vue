@@ -48,7 +48,6 @@
             class="mx-2 mb-3"
             fill-width
           />
-          <button @click="toast">Click Me</button>
           <span class="font-2 text-white text-center">{{ msg }}</span>
         </div>
       </div>
@@ -58,22 +57,22 @@
 </template>
 
 <script lang="ts">
-import { UserAuthenticationDto } from "@/logic/modules/users/types/user-authentication-dto";
-import { userAuthenticationLogic } from "@/logic/modules/users/user-authentication-logic";
-import store from "@/store";
-import { account, key } from "@/store/modules/users";
+import { UserAuthenticationDto } from "../logic/modules/users/types/user-authentication-dto";
+import { userAuthenticationLogic } from "../logic/modules/users/user-authentication-logic";
+import store from "../store";
+import { account, key } from "../store/modules/users";
 import { Options, Vue } from "vue-class-component";
 import { useStore } from "vuex";
 import CoButton from "../components/common-components/Button.vue";
 import Button from "../components/common-components/Button.vue";
 import CoPageLayout from "../components/common-components/CoPagelayout.vue";
 import FormInput from "../components/common-components/FormInput.vue";
+import VueRouter from "vue-router";
 
-import BaseComponent from "@/components/common-components/BaseComponent.vue";
-
+import BaseComponent from "../components/common-components/BaseComponent.vue";
 @Options({
   props: {},
-  components: { FormInput, CoButton, CoPageLayout, BaseComponent },
+  components: { FormInput, CoButton, CoPageLayout },
 })
 export default class LoginPageComponent extends BaseComponent {
   setup() {
