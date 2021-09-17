@@ -10,7 +10,7 @@ import BaseComponent from "./BaseComponent.vue";
 export default class CoCard extends BaseComponent {}
 </script>
 
-<style lang="scss" >
+<style>
 .card-container {
   height: 300px;
 }

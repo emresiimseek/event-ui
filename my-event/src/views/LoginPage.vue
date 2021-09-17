@@ -48,6 +48,12 @@
             class="mx-2 mb-3"
             fill-width
           />
+          <pulse-loader
+            :loading="loading"
+            :color="color"
+            :size="size"
+          ></pulse-loader>
+
           <span class="font-2 text-white text-center">{{ msg }}</span>
         </div>
       </div>
@@ -68,11 +74,11 @@ import Button from "../components/common-components/Button.vue";
 import CoPageLayout from "../components/common-components/CoPagelayout.vue";
 import FormInput from "../components/common-components/FormInput.vue";
 import VueRouter from "vue-router";
-
+import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 import BaseComponent from "../components/common-components/BaseComponent.vue";
 @Options({
   props: {},
-  components: { FormInput, CoButton, CoPageLayout },
+  components: { FormInput, CoButton, CoPageLayout, PulseLoader, BaseComponent },
 })
 export default class LoginPageComponent extends BaseComponent {
   setup() {
