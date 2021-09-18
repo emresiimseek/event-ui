@@ -32,8 +32,9 @@
         <div class="text-white font-1 text-end mb-1">Parolana mı Unuttun?</div>
         <div class="d-flex flex-column">
           <co-button
-            @click="submit"
+            @button-clicked="submit"
             buttonText="Giriş"
+            :buttonLoading="isAnyLoading"
             color="light"
             is-outline
             size="sm"
@@ -49,9 +50,10 @@
             fill-width
           />
           <pulse-loader
-            :loading="loading"
-            :color="color"
+            :loading="isAnyLoading"
+            color="white"
             :size="size"
+            class="m-auto"
           ></pulse-loader>
 
           <span class="font-2 text-white text-center">{{ msg }}</span>
@@ -74,7 +76,7 @@ import Button from "../components/common-components/Button.vue";
 import CoPageLayout from "../components/common-components/CoPagelayout.vue";
 import FormInput from "../components/common-components/FormInput.vue";
 import VueRouter from "vue-router";
-import PulseLoader from "vue-spinner/src/PulseLoader.vue";
+import PulseLoader from "vue-spinner/src/GridLoader.vue";
 import BaseComponent from "../components/common-components/BaseComponent.vue";
 @Options({
   props: {},
