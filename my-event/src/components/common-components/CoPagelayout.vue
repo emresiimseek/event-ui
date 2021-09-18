@@ -24,7 +24,6 @@ export default class CoPageLayout extends BaseComponent {
 </script>
 <style scoped>
 .co-page-layout {
-  min-height: 100%;
   overflow: hidden;
   justify-content: center;
   display: flex;
@@ -32,6 +31,10 @@ export default class CoPageLayout extends BaseComponent {
   flex-direction: column;
   width: 100%;
   flex: 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  background-size: cover;
 }
 
 .footer {
@@ -48,6 +51,11 @@ export default class CoPageLayout extends BaseComponent {
 }
 
 .page-header {
-  position: fixed;
+  height: 10%;
+}
+.scroll-area {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 90%;
 }
 </style>

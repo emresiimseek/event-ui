@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded w-75 card-container mb-3 bg-white"></div>
+  <div class="border rounded card-container mb-3 bg-white"></div>
 </template>
 
 <script lang='ts'>
