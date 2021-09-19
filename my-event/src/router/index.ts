@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: { isAuthenticationRequired: true },
+    meta: { auth: true },
   },
 ];
 
@@ -45,11 +45,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const isAuthenticated = routeGuard.isAuthenticated();
 
-  if (
-    !isAuthenticated &&
-    to.name != "login" &&
-    !!to.meta.isAuthenticationRequired
-  ) {
+  if (!isAuthenticated && !!to.meta.auth) {
     next({
       name: "login",
       query: { redirect: to.fullPath },
