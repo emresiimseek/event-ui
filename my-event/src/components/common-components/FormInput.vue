@@ -2,12 +2,12 @@
   <div>
     <div class="text-white font-1">{{ label }}</div>
     <input
-      v-model="localValue"
+      :value="value"
       :type="inputType"
       class="form-control co-input"
       :placeholder="placeHolder"
       :class="computedClaseses"
-      @input="onInput"
+      @input="$emit('update:value', $event.target.value)"
     />
   </div>
 </template>
@@ -19,28 +19,28 @@ import { InputType } from "../../logic/types/common-types/input-type";
 import BaseComponent from "./BaseComponent.vue";
 @Options({
   props: {
-    value: Object as PropType<any>,
+    value: Object,
     placeHolder: String,
-    inputType: String,
+    inputType: Object as PropType<InputType>,
     size: String,
     label: String,
     clasess: String,
   },
   components: { BaseComponent },
+  model: { prop: "value", value: "input" },
+  emits: ["update:value"],
 })
 export default class FormInput extends BaseComponent {
-  size!: String;
+  size!: string;
   value!: any;
   clasess!: string;
-
-  localValue: any = "";
 
   get computedClaseses() {
     return [`form-control-${this.size}`, this.clasess ? this.clasess : ""];
   }
 
-  onInput() {
-    this.$emit("valueChanged", this.localValue);
+  onInput(event: any) {
+    this.$emit("update:value", event.target.value);
   }
 }
 </script>

@@ -11,20 +11,19 @@
     <div class="above-index">
       <div class="card-title text-white text-center">Login</div>
       <form-input
-        :v-model="user.userName"
+        v-model:value="user.userName"
         placeHolder="Kullanıcı Adı"
         inputType="text"
         size="sm"
         label="Kullanıcı Adı"
         clasess="mb-2"
-        @valueChanged="userNameChanged"
       />
       <form-input
+        v-model:value="user.password"
         placeHolder="Parola"
         inputType="password"
         size="sm"
         label="Parola"
-        @valueChanged="passwordChanged"
         clasess="mb-1"
       />
 
@@ -40,6 +39,7 @@
           is-outline
           size="sm"
           class="mx-2"
+          icon="fas fa-sign-in-alt"
           fill-width
         />
 
@@ -50,6 +50,7 @@
           is-outline
           size="sm"
           class="mx-2 mb-3"
+          icon="fas fa-align-left"
           fill-width
         />
 
