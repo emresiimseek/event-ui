@@ -9,6 +9,8 @@ import "mosha-vue-toastify/dist/style.css";
 import { AxiosResponse } from "axios";
 import { uuidUtils } from "@/logic/utilities/UuidUtils";
 import { ServiceResponseDto } from "@/logic/types/common-types/service-response-dto";
+import { InputType } from "@/logic/types/common-types/input-type";
+import { UserDto } from "@/logic/types/common-types/user-dto";
 
 @Options({ components: {} })
 export default class BaseComponent extends Vue {
@@ -37,28 +39,17 @@ export default class BaseComponent extends Vue {
     );
   }
 
-  async handleRequest<TResponse, TType>(
-    request: () => Promise<any>
-  ): Promise<AxiosResponse> {
+  async handleRequest<TType>(
+    request: () => Promise<AxiosResponse<ServiceResponseDto<TType>>>
+  ): Promise<AxiosResponse<ServiceResponseDto<TType>>> {
     const uid = uuidUtils.uuidv4();
 
     this.loadings[uid] = true;
 
     const result = await request();
 
-    const response = result as AxiosResponse;
-
-    console.log("handleRequest");
-
-    const data = response.data as ServiceResponseDto;
-
-    // if (!!data?.errors?.length) {
-    //   const errors = data.errors.map((x) => x.errors).join(",");
-    //   this.toast("danger", errors);
-    // }
-
-    if (response.status != 200 && response.status != 204)
-      this.toast("danger", String(response));
+    if (result.status != 200 && result.status != 204)
+      this.toast("danger", String(result));
 
     this.loadings[uid] = false;
 

@@ -38,6 +38,10 @@
     width: 20%;
 }
 
+.above-index {
+    z-index: 5;
+}
+
 .hoverable {
     cursor: pointer;
     transition: opacity 0.3s ease;

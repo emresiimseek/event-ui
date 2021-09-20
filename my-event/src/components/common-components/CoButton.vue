@@ -15,7 +15,10 @@
         class="m-auto"
       >
       </beat-loader>
-      <span v-else> {{ buttonText }} </span>
+      <span class="d-flex align-items-center" v-else>
+        <i class="" :class="[icon]"></i>
+        <span class="flex-1">{{ buttonText }}</span>
+      </span>
     </button>
   </div>
 </template>
@@ -33,6 +36,7 @@ import BeatLoader from "vue-spinner/src/ClipLoader.vue";
     size: String,
     fillWidth: Boolean,
     buttonLoading: Boolean,
+    icon: String,
   },
   components: { BaseComponent, BeatLoader },
 })
@@ -42,6 +46,7 @@ export default class CoButton extends BaseComponent {
   size!: String;
   fillWidth!: String;
   buttonLoading!: Boolean;
+  icon!: String;
 
   get colorClass() {
     return `btn-${this.isOutline ? "outline-" : ""}${this.color}`;

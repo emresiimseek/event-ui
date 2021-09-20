@@ -1,5 +1,5 @@
-export interface ServiceResponseDto {
-  model: any;
+export interface ServiceResponseDto<T = any> {
+  model: T;
   errors: ErrorDto[];
 }
 
