@@ -8,6 +8,7 @@ import { createToast, ToastType } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 import { AxiosResponse } from "axios";
 import { uuidUtils } from "@/logic/utilities/UuidUtils";
+import { ServiceResponseDto } from "@/logic/types/common-types/service-response-dto";
 
 @Options({ components: {} })
 export default class BaseComponent extends Vue {
@@ -46,6 +47,15 @@ export default class BaseComponent extends Vue {
     const result = await request();
 
     const response = result as AxiosResponse;
+
+    console.log("handleRequest");
+
+    const data = response.data as ServiceResponseDto;
+
+    // if (!!data?.errors?.length) {
+    //   const errors = data.errors.map((x) => x.errors).join(",");
+    //   this.toast("danger", errors);
+    // }
 
     if (response.status != 200 && response.status != 204)
       this.toast("danger", String(response));

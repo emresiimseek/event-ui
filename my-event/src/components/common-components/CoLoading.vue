@@ -131,6 +131,8 @@ import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 import RingLoader from "vue-spinner/src/RingLoader.vue";
+import BeatLoader from "vue-spinner/src/BeatLoader.vue";
+import DotLoader from "vue-spinner/src/DotLoader.vue";
 @Options({
   components: {
     BounceLoader,
@@ -147,6 +149,8 @@ import RingLoader from "vue-spinner/src/RingLoader.vue";
     MoonLoader,
     PacmanLoader,
     PulseLoader,
+    BeatLoader,
+    DotLoader
   },
   props: {
     type: String,
