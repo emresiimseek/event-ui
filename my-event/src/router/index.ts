@@ -6,6 +6,7 @@ import {
   RouterLink,
 } from "vue-router";
 import Home from "../views/Home.vue";
+import Account from "../views/Account.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,8 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Account.vue"),
+    component: Account,
     children: [
       {
         path: "/login",
@@ -42,8 +42,16 @@ const router = createRouter({
   routes,
 });
 
+// router.onError((error) => {
+//   if (/loading chunk \d* failed./i.test(error.message)) {
+//     window.location.reload();
+//   }
+// });
+
 router.beforeEach(async (to, from, next) => {
   const isAuthenticated = routeGuard.isAuthenticated();
+
+  console.log("beforeEach");
 
   if (!isAuthenticated && !!to.meta.auth) {
     next({

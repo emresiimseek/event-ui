@@ -1,58 +1,71 @@
 <template>
-  <div class="position-absolute login-form-inputs">
-    <div class="card-title text-white text-center">Login</div>
-    <form-input
-      :v-model="user.userName"
-      placeHolder="Kullanıcı Adı"
-      inputType="text"
-      size="sm"
-      label="Kullanıcı Adı"
-      clasess="mb-2"
-      @valueChanged="userNameChanged"
-    />
-    <form-input
-      placeHolder="Parola"
-      inputType="password"
-      size="sm"
-      label="Parola"
-      @valueChanged="passwordChanged"
-      clasess="mb-1"
-    />
-
-    <div class="text-white font-1 text-end mb-4 hoverable">
-      Parolana mı Unuttun?
-    </div>
-    <div class="d-flex flex-column">
-      <co-button
-        @button-clicked="submit"
-        buttonText="Giriş"
-        :buttonLoading="isAnyLoading"
-        color="light"
-        is-outline
+  <div
+    class="
+      d-flex
+      flex-column
+      justify-content-center
+      align-items-center
+      position-absolute
+    "
+  >
+    <div class="above-index">
+      <div class="card-title text-white text-center">Login</div>
+      <form-input
+        :v-model="user.userName"
+        placeHolder="Kullanıcı Adı"
+        inputType="text"
         size="sm"
-        class="mx-2"
-        fill-width
+        label="Kullanıcı Adı"
+        clasess="mb-2"
+        @valueChanged="userNameChanged"
       />
-
-      <co-button
-        @button-clicked="toSignIn"
-        buttonText="Kaydol"
-        color="light"
-        is-outline
+      <form-input
+        placeHolder="Parola"
+        inputType="password"
         size="sm"
-        class="mx-2 mb-3"
-        fill-width
+        label="Parola"
+        @valueChanged="passwordChanged"
+        clasess="mb-1"
       />
 
-      <co-loading
-        :spinnerLoading="isAnyLoading"
-        type="grid"
-        class="m-auto"
-        color="white"
-      />
+      <div class="text-white font-1 text-end mb-4 hoverable">
+        Parolana mı Unuttun?
+      </div>
+      <div class="d-flex flex-column">
+        <co-button
+          @button-clicked="submit"
+          buttonText="Giriş"
+          :buttonLoading="isAnyLoading"
+          color="light"
+          is-outline
+          size="sm"
+          class="mx-2"
+          fill-width
+        />
 
-      <span class="font-2 text-white text-center">{{ msg }}</span>
+        <co-button
+          @button-clicked="toSignIn"
+          buttonText="Kaydol"
+          color="light"
+          is-outline
+          size="sm"
+          class="mx-2 mb-3"
+          fill-width
+        />
+
+        <co-loading
+          :spinnerLoading="isAnyLoading"
+          type="grid"
+          class="m-auto"
+          color="white"
+        />
+      </div>
     </div>
+    <span class="font-2 text-white text-center above-index">
+      <span v-for="item in messages" :key="item">
+        {{ item }}
+      </span>
+    </span>
   </div>
 </template>
 
@@ -67,6 +80,7 @@ import { UserAuthenticationDto } from "@/logic/modules/users/types/user-authenti
 import { useStore } from "vuex";
 import { userAuthenticationLogic } from "@/logic/modules/users/user-authentication-logic";
 import { account, key } from "@/store/modules/users";
+import { ServiceResponseDto } from "@/logic/types/common-types/service-response-dto";
 
 @Options({
   components: { FormInput, CoButton, CoLoading },
@@ -76,7 +90,8 @@ export default class Login extends BaseComponent {
     const store = useStore(key);
     store.state.user;
   }
-  msg: string = "";
+
+  messages: string[] = [];
 
   user: UserAuthenticationDto = { userName: "", password: "", token: "" };
 
@@ -99,13 +114,20 @@ export default class Login extends BaseComponent {
       userAuthenticationLogic.authentication(this.user)
     );
 
-    if (!!result.data) this.setSessionStorage(result.data);
+    const responseModel = result.data as ServiceResponseDto;
 
-    account.commit("login", result, { root: true });
+    if (!!responseModel.model.length) this.directToHome(responseModel);
+    else if (
+      (result.status == 204 || result.status == 200) &&
+      !responseModel.model.length
+    )
+      this.messages = responseModel.errors.flatMap((m) => m.errors);
+  }
 
-    if (!!result.data) this.$router.push({ path: "/", name: "Home" });
-    else if (result.status == 204 && !result.data)
-      this.msg = "Kullanıcı adı veya parola yanlış!";
+  private directToHome(responseModel: ServiceResponseDto) {
+    this.setSessionStorage(responseModel.model[0]);
+    account.commit("login", responseModel.model[0], { root: true });
+    this.$router.push({ path: "/", name: "Home" });
   }
 
   private setSessionStorage(data: UserAuthenticationDto) {
@@ -113,8 +135,9 @@ export default class Login extends BaseComponent {
   }
 }
 </script>
+
 <style>
-.login-form-inputs {
+.above-index {
   z-index: 5;
 }
 </style>
