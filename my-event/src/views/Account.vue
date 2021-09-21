@@ -21,18 +21,11 @@
 </template>
 
 <script lang="ts">
+import CoPageLayout from "@/components/common-components/CoPageLayout.vue";
 import CoLoading from "../components/common-components/CoLoading.vue";
-import { UserAuthenticationDto } from "../logic/modules/users/types/user-authentication-dto";
-import { userAuthenticationLogic } from "../logic/modules/users/user-authentication-logic";
-import store from "../store";
-import { account, key } from "../store/modules/users";
 import { Options, Vue } from "vue-class-component";
-import { useStore } from "vuex";
 import CoButton from "../components/common-components/CoButton.vue";
-import Button from "../components/common-components/CoButton.vue";
-import CoPageLayout from "../components/common-components/CoPageLayout.vue";
 import FormInput from "../components/common-components/FormInput.vue";
-import VueRouter from "vue-router";
 import PulseLoader from "vue-spinner/src/GridLoader.vue";
 import BaseComponent from "../components/common-components/BaseComponent.vue";
 @Options({
@@ -40,10 +33,10 @@ import BaseComponent from "../components/common-components/BaseComponent.vue";
   components: {
     FormInput,
     CoButton,
-    CoPageLayout,
     PulseLoader,
     BaseComponent,
     CoLoading,
+    CoPageLayout,
   },
 })
 export default class Account extends BaseComponent {}
