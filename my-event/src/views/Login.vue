@@ -1,15 +1,8 @@
 <template>
-  <div
-    class="
-      d-flex
-      flex-column
-      justify-content-center
-      align-items-center
-      position-absolute
-    "
-  >
-    <div class="above-index">
-      <div class="card-title text-white text-center">Login</div>
+  <div class="position-absolute above-index">
+    <div>
+      <div class="text-white text-center">Giriş</div>
+
       <form-input
         v-model:value="user.userName"
         placeHolder="Kullanıcı Adı"
@@ -82,6 +75,7 @@ import { useStore } from "vuex";
 import { userAuthenticationLogic } from "@/logic/modules/users/user-authentication-logic";
 import { account, key } from "@/store/modules/users";
 import { ServiceResponseDto } from "@/logic/types/common-types/service-response-dto";
+import { UserDto } from "@/logic/types/common-types/user-dto";
 
 @Options({
   components: { FormInput, CoButton, CoLoading },
@@ -111,21 +105,19 @@ export default class Login extends BaseComponent {
   async submit(value: string) {
     console.log("submit");
 
-    const result = await this.handleRequest(() =>
+    const result = await this.handleRequest<UserDto>(() =>
       userAuthenticationLogic.authentication(this.user)
     );
 
-    const responseModel = result.data as ServiceResponseDto;
-
-    if (!!responseModel.model.length) this.directToHome(responseModel);
+    if (!!result.data.model.length) this.directToHome(result.data);
     else if (
       (result.status == 204 || result.status == 200) &&
-      !responseModel.model.length
+      !result.data.model.length
     )
-      this.messages = responseModel.errors.flatMap((m) => m.errors);
+      this.messages = result.data.errors.flatMap((m) => m.errors);
   }
 
-  private directToHome(responseModel: ServiceResponseDto) {
+  private directToHome(responseModel: ServiceResponseDto<UserDto>) {
     this.setSessionStorage(responseModel.model[0]);
     account.commit("login", responseModel.model[0], { root: true });
     this.$router.push({ path: "/", name: "Home" });

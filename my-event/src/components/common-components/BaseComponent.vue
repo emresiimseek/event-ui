@@ -46,14 +46,18 @@ export default class BaseComponent extends Vue {
 
     this.loadings[uid] = true;
 
+    console.log("handleRequest");
     const result = await request();
 
-    if (result.status != 200 && result.status != 204)
-      this.toast("danger", String(result));
+    if (!result.data) this.toast("danger", String(result));
 
     this.loadings[uid] = false;
 
     return result;
+  }
+
+  succsess(message: string) {
+    this.toast("success", message);
   }
 }
 </script>
