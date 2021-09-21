@@ -1,26 +1,17 @@
 <template>
-  <div class="font-2 nav-var border-bottom bg-white">
-    <nav
-      id="menu"
-      class="
-        d-flex
-        justify-content-center
-        align-items-center
-        flex-row
-        p-2
-        w-100
-      "
-    >
-      <span class="font-3 col-3 bold-text">BeSocialize</span>
-
-      <div class="col-3 d-flex justify-content-center">
-        <form-input clasess=" font-1" size="sm" class="w-75" />
-      </div>
-      <div
-        class="d-flex font-2 justify-content-center align-items-center col-4"
+  <div class="font-2 nav-var -bottom bg-white border-bottom">
+    <nav id="menu" class="d-flex flex-row align-items-center flex-1">
+      <span class="font-3 col-2 bold-text text-center hoverable"
+        >BeSocialize</span
       >
-        <router-link to="/login">Anasayfa</router-link>
-        <router-link to="/login">Etkinlikler</router-link>
+
+      <div class="col-4 d-flex justify-content-end">
+        <search-input class="w-50" />
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center font-2 col-4">
+        <router-link to="/flow">Anasayfa</router-link>
+        <router-link to="/flow">Etkinlikler</router-link>
         <router-link to="/login">Profil</router-link>
         <co-button
           @click="toCreateEvent"
@@ -28,12 +19,17 @@
           icon="far fa-calendar-alt"
           size="sm"
           is-outline
-          buttonText="Etkinlik Yarat"
+          buttonText="Etkinlik Oluştur"
         />
       </div>
-      <div class="icon-container d-flex justify-content-around col-1">
-        <span><i class="far fa-user"></i></span>
-        <span><i class="fas fa-cog"></i></span>
+      <div class="d-flex icon-container justify-content-center col-2 gap-3">
+       
+        <span class="hoverable d-inline-flex align-items-center"
+          ><i class="far fa-user"></i
+          ><span class="text-capitalize font-2">{{ user }}</span>
+        </span>
+        
+        <span class="hoverable"><i class="fas fa-cog"></i></span>
       </div>
     </nav>
   </div>
@@ -45,17 +41,27 @@ import { Options, Vue } from "vue-class-component";
 import { NavLinkItem } from "../../logic/types/common-types/link-type";
 import BaseComponent from "./BaseComponent.vue";
 import FormInput from "./FormInput.vue";
+import SearchInput from "./SearchInput.vue";
+import { account } from "@/store/modules/users";
+import { UserDto } from "@/logic/types/common-types/user-dto";
+import { UserAuthenticationDto } from "@/logic/modules/users/types/user-authentication-dto";
 @Options({
   props: { items: Object as PropType<NavLinkItem[]> },
-  components: { FormInput, BaseComponent, CoButton },
+  components: { FormInput, BaseComponent, CoButton, SearchInput },
 })
 export default class NavBar extends BaseComponent {
   toCreateEvent() {
     this.$router.push("newevent");
   }
+
+  get user() {
+    const jsonData = sessionStorage.getItem("authentication") ?? "";
+    const userDto = JSON.parse(jsonData) as UserAuthenticationDto;
+    return userDto.userName;
+  }
 }
 </script>
-<style >
+<style lang="scss">
 nav a {
   color: black;
   text-decoration: none;
