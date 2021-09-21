@@ -34,6 +34,18 @@ const routes: Array<RouteRecordRaw> = [
     name: "Home",
     component: Home,
     meta: { auth: true },
+    children: [
+      {
+        name: "flow",
+        path: "/flow",
+        component: () => import("@/views/EventFlow.vue"),
+      },
+      {
+        name: "newevent",
+        path: "/newevent",
+        component: () => import("@/views/NewEvent.vue"),
+      },
+    ],
   },
 ];
 
