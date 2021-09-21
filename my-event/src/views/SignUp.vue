@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="position-absolute above-index d-flex align-items-center flex-column"
-  >
+  <div class="position-absolute above-index">
     <div>
-      <span class="text-white">Kaydol</span>
+      <div class="text-white text-center">Kaydol</div>
       <form-input
         v-model:value="user.firstName"
         :inputType="inputType"
@@ -26,11 +24,11 @@
         label="Kullanıcı Adı"
       />
       <form-input
-        v-model:value="user.gender"
-        inputType="number"
-        class="mb-1"
+        v-model:value="user.userName"
+        inputType="email"
+        class="mb-2"
         size="sm"
-        label="Cinsiyet"
+        label="Kullanıcı Adı"
       />
       <form-input
         v-model:value="user.email"
@@ -39,8 +37,17 @@
         size="sm"
         label="E-Posta"
       />
+
+      <form-input
+        v-model:value="user.password"
+        inputType="password"
+        class="mb-2"
+        size="sm"
+        label="Parola"
+      />
       <co-button
         @button-clicked="save"
+        :buttonLoading="isAnyLoading"
         buttonText="Kaydet"
         color="light"
         is-outline
@@ -51,6 +58,7 @@
       />
       <co-button
         @button-clicked="toLogin"
+        :buttonLoading="isAnyLoading"
         buttonText="Giriş"
         color="light"
         is-outline
@@ -71,6 +79,7 @@ import { Options } from "vue-class-component";
 import { userAuthenticationLogic } from "@/logic/modules/users/user-authentication-logic";
 import { UserDto } from "@/logic/types/common-types/user-dto";
 import { InputType } from "@/logic/types/common-types/input-type";
+import { EnumGender } from "@/logic/modules/users/types/enum-gender";
 
 @Options({ components: { FormInput, CoButton } })
 export default class SignUp extends BaseComponent {
@@ -86,9 +95,7 @@ export default class SignUp extends BaseComponent {
       userAuthenticationLogic.save(this.user)
     );
 
-    if (!result) return;
-
-    this.user = result.data.model;
+    if (!!result.data.model.length) this.succsess("Kaydet İşlemi Başarılı.");
   }
 }
 </script>

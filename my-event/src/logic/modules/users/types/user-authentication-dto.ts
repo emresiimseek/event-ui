@@ -1,6 +1,5 @@
 export interface UserAuthenticationDto {
-    userName: string;
-    password: string;
-    token: string;
-
+  userName: string;
+  password: string;
+  token: string;
 }
