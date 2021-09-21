@@ -16,8 +16,8 @@
       >
       </beat-loader>
       <span class="d-flex align-items-center" v-else>
-        <i class="" :class="[icon]"></i>
-        <span class="flex-1">{{ buttonText }}</span>
+        <i :class="[icon]"></i>
+        <span class="flex-1 font-2 ml-1"> {{ buttonText }}</span>
       </span>
     </button>
   </div>
@@ -73,6 +73,10 @@ export default class CoButton extends BaseComponent {
 <style scoped>
 .flex-1 {
   flex: 1;
+}
+
+.ml-1 {
+  margin-left: 6px;
 }
 </style>
 

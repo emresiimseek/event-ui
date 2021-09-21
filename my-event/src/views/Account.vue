@@ -1,5 +1,9 @@
 <template>
-  <co-page-layout class="login-base-container" position="absolute">
+  <co-page-layout
+    class="login-base-container"
+    mainClass="flex-1"
+    position="absolute"
+  >
     <div
       class="
         d-flex
@@ -51,6 +55,7 @@ export default class Account extends BaseComponent {}
   background-repeat: no-repeat;
   background-position: center;
   height: 100%;
+  width: 100%;
   background-size: cover;
 }
 
