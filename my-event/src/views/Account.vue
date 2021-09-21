@@ -30,7 +30,7 @@ import { Options, Vue } from "vue-class-component";
 import { useStore } from "vuex";
 import CoButton from "../components/common-components/CoButton.vue";
 import Button from "../components/common-components/CoButton.vue";
-import CoPageLayout from "../components/common-components/CoPagelayout.vue";
+import CoPageLayout from "../components/common-components/CoPageLayout.vue";
 import FormInput from "../components/common-components/FormInput.vue";
 import VueRouter from "vue-router";
 import PulseLoader from "vue-spinner/src/GridLoader.vue";
@@ -57,6 +57,7 @@ export default class Account extends BaseComponent {}
   height: 100%;
   width: 100%;
   background-size: cover;
+  justify-content: center;
 }
 
 .card-size {

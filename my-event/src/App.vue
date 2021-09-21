@@ -11,6 +11,6 @@ html {
   position: relative;
 }
 * {
-  font-family: "Kaisei Tokumin", serif;
+  font-family: "Montserrat", serif;
 }
 </style>

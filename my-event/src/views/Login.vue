@@ -10,6 +10,7 @@
         size="sm"
         label="Kullanıcı Adı"
         clasess="mb-2"
+        labelColor="white"
       />
       <form-input
         v-model:value="user.password"
@@ -26,8 +27,8 @@
       <div class="d-flex flex-column">
         <co-button
           @button-clicked="submit"
-          buttonText="Giriş"
           :buttonLoading="isAnyLoading"
+          buttonText="Giriş"
           color="light"
           is-outline
           size="sm"
@@ -60,6 +61,9 @@
         {{ item }}
       </span>
     </span>
+    <span class="font-1 text-white d-flex justify-content-center"
+      >© 2021 from BeSocial</span
+    >
   </div>
 </template>
 
@@ -103,8 +107,6 @@ export default class Login extends BaseComponent {
   }
 
   async submit(value: string) {
-    console.log("submit");
-
     const result = await this.handleRequest<UserDto>(() =>
       userAuthenticationLogic.authentication(this.user)
     );
@@ -120,7 +122,7 @@ export default class Login extends BaseComponent {
   private directToHome(responseModel: ServiceResponseDto<UserDto>) {
     this.setSessionStorage(responseModel.model[0]);
     account.commit("login", responseModel.model[0], { root: true });
-    this.$router.push({ path: "/", name: "Home" });
+    this.$router.push({ name: "flow" });
   }
 
   private setSessionStorage(data: UserAuthenticationDto) {

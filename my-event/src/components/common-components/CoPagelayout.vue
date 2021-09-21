@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="d-flex co-page-layout flex-column position-relative"
-    :class="computedClass"
-  >
-    <div class="container-fluid d-flex justify-content-center mt-5">
+  <div class="d-flex flex-column position-relative" :class="computedClass">
+    <div class="d-flex justify-content-center">
       <div :class="leftClass">
         <slot name="left-side"></slot>
       </div>
@@ -43,7 +40,4 @@ export default class CoPageLayout extends BaseComponent {
 }
 </script>
 <style scoped>
-.co-page-layout {
-  background-color: red;
-}
 </style>

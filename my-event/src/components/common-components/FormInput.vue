@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="text-white font-1">{{ label }}</div>
+    <div class="form-input-label" :style="{ color: labelColor }">
+      {{ label }}
+    </div>
     <input
       :value="value"
       :type="inputType"
@@ -19,12 +21,13 @@ import { InputType } from "../../logic/types/common-types/input-type";
 import BaseComponent from "./BaseComponent.vue";
 @Options({
   props: {
-    value: Object,
+    value: String,
     placeHolder: String,
     inputType: Object as PropType<InputType>,
     size: String,
     label: String,
     clasess: String,
+    labelColor: { default: "white", type: String },
   },
   components: { BaseComponent },
   model: { prop: "value", value: "input" },
@@ -44,3 +47,8 @@ export default class FormInput extends BaseComponent {
   }
 }
 </script>
+<style lang="scss">
+.form-input-label {
+  font-size: 10px;
+}
+</style>
