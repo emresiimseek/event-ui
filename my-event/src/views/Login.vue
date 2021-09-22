@@ -51,7 +51,7 @@
         <co-loading
           :spinnerLoading="isAnyLoading"
           type="grid"
-          class="m-auto"
+          class="m-auto mb-3"
           color="white"
         />
       </div>
@@ -80,7 +80,6 @@ import { userAuthenticationLogic } from "@/logic/modules/users/user-authenticati
 import { account, key } from "@/store/modules/users";
 import { ServiceResponseDto } from "@/logic/types/common-types/service-response-dto";
 import { UserDto } from "@/logic/types/common-types/user-dto";
-
 @Options({
   components: { FormInput, CoButton, CoLoading },
 })
@@ -107,19 +106,18 @@ export default class Login extends BaseComponent {
   }
 
   async submit(value: string) {
-    const result = await this.handleRequest<UserDto>(() =>
-      userAuthenticationLogic.authentication(this.user)
-    );
+    const result = await this.handleRequest<
+      ServiceResponseDto<UserAuthenticationDto>
+    >(() => userAuthenticationLogic.authentication(this.user));
 
-    if (!!result.data.model.length) this.directToHome(result.data);
-    else if (
-      (result.status == 204 || result.status == 200) &&
-      !result.data.model.length
-    )
-      this.messages = result.data.errors.flatMap((m) => m.errors);
+    if (!!result?.model.length) this.directToHome(result);
+    else if (result?.errors.length)
+      this.messages = result.errors?.flatMap((m) => m.errors);
   }
 
-  private directToHome(responseModel: ServiceResponseDto<UserDto>) {
+  private directToHome(
+    responseModel: ServiceResponseDto<UserAuthenticationDto>
+  ) {
     this.setSessionStorage(responseModel.model[0]);
     account.commit("login", responseModel.model[0], { root: true });
     this.$router.push({ name: "flow" });

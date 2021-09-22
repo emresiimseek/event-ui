@@ -14,12 +14,10 @@
       "
     >
       <router-view />
-
       <div class="bg-dark p-3 px-5 opacity-50 rounded-3 card-size"></div>
     </div>
   </co-page-layout>
 </template>
-
 <script lang="ts">
 import CoPageLayout from "@/components/common-components/CoPageLayout.vue";
 import CoLoading from "../components/common-components/CoLoading.vue";
@@ -41,7 +39,6 @@ import BaseComponent from "../components/common-components/BaseComponent.vue";
 })
 export default class Account extends BaseComponent {}
 </script>
-
 <style scoped>
 .login-base-container {
   background: url("../../public/images/fun.jpg");

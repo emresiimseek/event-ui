@@ -11,6 +11,18 @@
       :class="computedClaseses"
       @input="$emit('update:value', $event.target.value)"
     />
+
+    <div ref="UserName" class="text-white validation-text">
+      <div
+        class="d-flex flex-column"
+        v-for="item in validationItems"
+        :key="item"
+      >
+        <span class="font-0 bg-danger p-1 mt-1 rounded">
+          {{ item }}
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,6 +40,8 @@ import BaseComponent from "./BaseComponent.vue";
     label: String,
     clasess: String,
     labelColor: { default: "white", type: String },
+    validations: Object,
+    fieldName: String,
   },
   components: { BaseComponent },
   model: { prop: "value", value: "input" },
@@ -37,9 +51,21 @@ export default class FormInput extends BaseComponent {
   size!: string;
   value!: any;
   clasess!: string;
+  fieldName!: string;
 
   get computedClaseses() {
     return [`form-control-${this.size}`, this.clasess ? this.clasess : ""];
+  }
+
+  get validationItems() {
+    let items: string[] = [];
+    for (const key in this.validations) {
+      if (key == this.fieldName) {
+        items = this.validations[key] as string[];
+      }
+    }
+
+    return items;
   }
 
   onInput(event: any) {

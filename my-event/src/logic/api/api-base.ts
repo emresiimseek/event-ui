@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { ValidationResponse } from "../modules/types/validation-response";
 import { UserAuthenticationDto } from "../modules/users/types/user-authentication-dto";
 import { ServiceResponseDto } from "../types/common-types/service-response-dto";
 import { UserDto } from "../types/common-types/user-dto";
@@ -17,26 +18,37 @@ class ApiBase {
     },
   });
 
-  async postRequest(
-    url: string,
-    value?: any
-  ): Promise<AxiosResponse<ServiceResponseDto<any>>> {
-    return await this.conduitApi
+  async postRequest<T>(url: string, value?: any): Promise<ApiBaseResponse<T>> {
+    let result: ApiBaseResponse<T> = {};
+
+    await this.conduitApi
       .post(url, value)
-      .then((response) => response)
+      .then((response) => {
+        result.data = response.data;
+      })
       .catch((error) => {
-        return error.message;
+        result.errors = error;
       });
+
+    return result;
   }
 
-  async getRequest<T>(url: string, value?: any): Promise<AxiosResponse<T>> {
-    return await this.conduitApi
+  async getRequest<T>(url: string, value?: any): Promise<ApiBaseResponse<T>> {
+    let result: ApiBaseResponse<T> = {};
+
+    await this.conduitApi
       .get(url, value)
-      .then((response) => response)
+      .then((response) => {
+        result.data = response.data;
+      })
       .catch((error) => {
-        return error.message;
+        result.errors = error;
       });
+
+    return result;
   }
 }
+
+export type ApiBaseResponse<T> = { data?: T; errors?: any };
 
 export const apiBase = new ApiBase();

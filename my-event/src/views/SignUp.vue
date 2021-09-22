@@ -1,6 +1,6 @@
 <template>
   <div class="position-absolute above-index">
-    <div>
+    <div class="signup-container">
       <div class="text-white text-center">Kaydol</div>
       <form-input
         v-model:value="user.firstName"
@@ -29,7 +29,10 @@
         class="mb-2"
         size="sm"
         label="Kullanıcı Adı"
+        :validations="validations"
+        fieldName="UserName"
       />
+
       <form-input
         v-model:value="user.email"
         :inputType="inputType"
@@ -44,6 +47,8 @@
         class="mb-2"
         size="sm"
         label="Parola"
+        fieldName="Password"
+        :validations="validations"
       />
       <co-button
         @button-clicked="save"
@@ -91,14 +96,17 @@ export default class SignUp extends BaseComponent {
   }
 
   async save() {
-    const result = await this.handleRequest<UserDto>(() =>
+    const result = await this.handleRequest<UserDto[]>(() =>
       userAuthenticationLogic.save(this.user)
     );
 
-    if (!!result.data.model.length) this.succsess("Kaydet İşlemi Başarılı.");
+    if (!!result?.length) this.succsess("Kaydet İşlemi Başarılı.");
   }
 }
 </script>
 
-<style>
+<style scpoed>
+.signup-container {
+  max-width: 250px;
+}
 </style>
