@@ -19,10 +19,19 @@ class ApiBase {
 
   async postRequest(
     url: string,
-    userDto: UserAuthenticationDto
-  ): Promise<AxiosResponse<ServiceResponseDto<UserDto>>> {
+    value?: any
+  ): Promise<AxiosResponse<ServiceResponseDto<any>>> {
     return await this.conduitApi
-      .post(url, userDto)
+      .post(url, value)
+      .then((response) => response)
+      .catch((error) => {
+        return error.message;
+      });
+  }
+
+  async getRequest<T>(url: string, value?: any): Promise<AxiosResponse<T>> {
+    return await this.conduitApi
+      .get(url, value)
       .then((response) => response)
       .catch((error) => {
         return error.message;

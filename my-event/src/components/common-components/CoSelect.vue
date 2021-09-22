@@ -8,7 +8,7 @@
       class="form-select form-select-sm"
       aria-label=".form-select-sm example"
     >
-      <option selected>Varsayılan</option>
+      <option selected>Seçiniz</option>
       <option
         v-for="item in items"
         :key="item.value"
@@ -25,7 +25,6 @@
 import { Options } from "vue-class-component";
 import BaseComponent from "./BaseComponent.vue";
 import { PropType } from "@vue/runtime-core";
-
 import { SelectModel } from "@/logic/types/common-types/select-model";
 @Options({
   components: {},
@@ -48,7 +47,7 @@ export default class CoSelect extends BaseComponent {
   }
 
   onInput(event: any) {
-    this.$emit("update:value", event.target.value);
+    this.$emit("update:value", +event.target.value);
   }
 }
 </script>
