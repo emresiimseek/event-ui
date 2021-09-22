@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="form-input-label" :style="{ color: labelColor }">
+    <div class="form-input-label mb-1" :style="{ color: labelColor }">
       {{ label }}
     </div>
     <input
