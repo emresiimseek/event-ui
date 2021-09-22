@@ -150,7 +150,7 @@ import DotLoader from "vue-spinner/src/DotLoader.vue";
     PacmanLoader,
     PulseLoader,
     BeatLoader,
-    DotLoader
+    DotLoader,
   },
   props: {
     type: String,

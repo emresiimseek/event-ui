@@ -1,19 +1,6 @@
 <template>
-  <co-page-layout
-    mainClass="flex-1 justify-content-center  d-flex bg-light p-5"
-  >
-    <div
-      class="
-        h-100
-        p-3
-        bg-white
-        rounded
-        d-flex
-        justify-content-center
-        flex-column
-        gap-2
-      "
-    >
+  <co-page-layout mainClass="flex-1 justify-content-center  d-flex  p-4">
+    <div class="d-flex flex-column bg-light rounded gap-2 p-3">
       <form-input
         v-model:value="activity.title"
         size="sm"
@@ -47,6 +34,7 @@
         class="m-auto"
         is-outline
         :buttonLoading="isAnyLoading"
+        laodingColor="black"
       />
     </div>
   </co-page-layout>
@@ -87,16 +75,21 @@ export default class NewEvent extends BaseComponent {
     this.getCategories();
   }
 
-  saveActivity() {
+  async saveActivity() {
     this.activity.activitysCategory.push({
       categoryId: this.selectedCategory,
       activityId: 0,
     });
-    var result = activityLogic.save(this.activity);
+
+    var result = await activityLogic.save(this.activity);
   }
 
   async getCategories() {
-    this.items = await categoriesLogic.getCategoriesLookUp();
+    const result = await this.handleRequest<SelectModel[]>(() =>
+      categoriesLogic.getCategoriesLookUp()
+    );
+
+    this.items = result ?? [];
   }
 
   saveEvent() {}

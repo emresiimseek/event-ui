@@ -30,7 +30,6 @@ import CoCard from "../components/common-components/CoCard.vue";
 })
 export default class EventFlow extends BaseComponent {}
 </script>
-
 <style scoped>
 .right-area {
   height: 400px;

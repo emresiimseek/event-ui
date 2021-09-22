@@ -8,7 +8,6 @@ class ActivityLogic {
 
   defaultModel = (): Activity => ({
     description: "",
-    title: "",
     activitysCategory: [],
     eventDate: "2019-01-06T17:16:40",
   });

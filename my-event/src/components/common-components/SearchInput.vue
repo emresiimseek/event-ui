@@ -18,7 +18,7 @@ export default class Searctınput extends Vue {}
   position: absolute;
   z-index: 2;
   display: block;
-  height: 1.9rem;
+  height: 2.4rem;
   margin-left: 6px;
   text-align: center;
   pointer-events: none;

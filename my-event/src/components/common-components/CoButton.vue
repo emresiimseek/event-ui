@@ -10,8 +10,8 @@
       <beat-loader
         v-if="buttonLoading"
         :loading="buttonLoading"
-        color="white"
-        size="20px"
+        :color="laodingColor"
+        size="15px"
         class="m-auto"
       >
       </beat-loader>
@@ -22,7 +22,6 @@
     </button>
   </div>
 </template>
-
 <script lang='ts'>
 import { Options, Vue } from "vue-class-component";
 import BaseComponent from "./BaseComponent.vue";
@@ -37,6 +36,7 @@ import BeatLoader from "vue-spinner/src/ClipLoader.vue";
     fillWidth: Boolean,
     buttonLoading: Boolean,
     icon: String,
+    laodingColor: { type: String, default: "white" },
   },
   components: { BaseComponent, BeatLoader },
 })
@@ -47,6 +47,7 @@ export default class CoButton extends BaseComponent {
   fillWidth!: String;
   buttonLoading!: Boolean;
   icon!: String;
+  laodingColor!: String;
 
   get colorClass() {
     return `btn-${this.isOutline ? "outline-" : ""}${this.color}`;
