@@ -1,6 +1,16 @@
 <template>
-  <div class="position-absolute above-index">
-    <div>
+  <div
+    class="
+      d-flex
+      justify-content-center
+      align-items-center
+      position-absolute
+      above-index
+      flex-column
+      gap-2
+    "
+  >
+    <div class="d-flex flex-column flex-1">
       <div class="text-white text-center">Giriş</div>
 
       <form-input
@@ -42,30 +52,36 @@
           buttonText="Kaydol"
           color="light"
           size="sm"
-          class="mx-2 mb-3"
+          class="mx-2"
           icon="fas fa-align-left"
           fill-width
         />
-
-        <co-loading
-          :spinnerLoading="isAnyLoading"
-          type="grid"
-          class="m-auto mb-3"
-          color="white"
-        />
       </div>
     </div>
-    <span class="font-2 text-white text-center above-index">
-      <span v-for="item in messages" :key="item">
-        {{ item }}
+
+    <div class="d-flex flex-column flex-1 gap-2">
+      <co-loading
+        :spinnerLoading="isAnyLoading"
+        type="grid"
+        class="m-auto mb-3"
+        color="white"
+      />
+      <span class="font-1 text-white text-center">
+        <span
+          v-for="item in messages"
+          :key="item"
+          class="text-center bg-danger p-1 rounded"
+        >
+          {{ item }}
+        </span>
       </span>
-    </span>
-    <span class="font-1 text-white d-flex justify-content-center"
-      >© 2021 from BeSocial</span
-    >
+
+      <span class="text-white text-center font-1 col-12"
+        >© 2021 from BeSocial</span
+      >
+    </div>
   </div>
 </template>
-
 <script lang="ts">
 import CoLoading from "../components/common-components/CoLoading.vue";
 import CoButton from "../components/common-components/CoButton.vue";
