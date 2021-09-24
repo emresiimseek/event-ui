@@ -1,75 +1,84 @@
 <template>
-  <div class="position-absolute above-index">
-    <div class="signup-container">
-      <div class="text-white text-center">Kaydol</div>
-      <form-input
-        v-model:value="user.firstName"
-        :inputType="inputType"
-        class="mb-1"
-        size="sm"
-        label="Adı"
-      />
-      <form-input
-        v-model:value="user.lastName"
-        :inputType="inputType"
-        class="mb-1"
-        size="sm"
-        label="Soyad"
-      />
-      <form-issssssnput
-        v-model:value="user.userName"
-        :inputType="inputType"
-        class="mb-1"
-        size="sm"
-        label="Kullanıcı Adı"
-      />
-      <form-input
-        v-model:value="user.userName"
-        inputType="email"
-        class="mb-2"
-        size="sm"
-        label="Kullanıcı Adı"
-        :validations="validations"
-        fieldName="UserName"
-      />
+  <div
+    class="
+      d-flex
+      flex-column flex-1
+      signup-container
+      position-absolute
+      above-index
+    "
+  >
+    <div class="text-white text-center">Kaydol</div>
+    <form-input
+      v-model:value="user.firstName"
+      :inputType="inputType"
+      class="mb-1"
+      size="sm"
+      label="Adı"
+      :validations="validations"
+      fieldName="FirstName"
+      max-width="215px"
+    />
+    <form-input
+      v-model:value="user.lastName"
+      :inputType="inputType"
+      class="mb-1"
+      size="sm"
+      label="Soyad"
+      :validations="validations"
+      fieldName="LastName"
+      max-width="215px"
+    />
 
-      <form-input
-        v-model:value="user.email"
-        :inputType="inputType"
-        class="mb-2"
-        size="sm"
-        label="E-Posta"
-      />
+    <form-input
+      v-model:value="user.userName"
+      inputType="email"
+      class="mb-2"
+      size="sm"
+      label="Kullanıcı Adı"
+      :validations="validations"
+      fieldName="UserName"
+      max-width="215px"
+    />
 
-      <form-input
-        v-model:value="user.password"
-        inputType="password"
-        class="mb-2"
+    <form-input
+      v-model:value="user.email"
+      :inputType="inputType"
+      class="mb-2"
+      size="sm"
+      label="E-Posta"
+      :validations="validations"
+      fieldName="Email"
+      max-width="215px"
+    />
+
+    <form-input
+      v-model:value="user.password"
+      inputType="password"
+      class="mb-2"
+      size="sm"
+      label="Parola"
+      fieldName="Password"
+      :validations="validations"
+      max-width="215px"
+    />
+    <div class="d-flex justify-content-around pt-2 gap-3">
+      <co-button
+        @button-clicked="toLogin"
+        :buttonLoading="isAnyLoading"
+        buttonText="Giriş"
+        color="light"
         size="sm"
-        label="Parola"
-        fieldName="Password"
-        :validations="validations"
+        icon="fas fa-arrow-left"
       />
-      <div class="d-flex justify-content-center align-items-center flex-column">
-        <co-button
-          @button-clicked="save"
-          :buttonLoading="isAnyLoading"
-          buttonText="Kaydet"
-          color="light"
-          size="sm"
-          class="mx-2 m-auto"
-          icon="fas fa-save"
-        />
-        <co-button
-          @button-clicked="toLogin"
-          :buttonLoading="isAnyLoading"
-          buttonText="Giriş"
-          color="light"
-          size="sm"
-          class="mx-2 mb-3 m-auto"
-          icon="fas fa-arrow-left"
-        />
-      </div>
+      <co-button
+        @button-clicked="save"
+        :buttonLoading="isAnyLoading"
+        buttonText="Kaydet"
+        color="light"
+        size="sm"
+        icon="fas fa-save"
+      />
     </div>
   </div>
 </template>
@@ -83,6 +92,7 @@ import { userAuthenticationLogic } from "@/logic/modules/users/user-authenticati
 import { UserDto } from "@/logic/types/common-types/user-dto";
 import { InputType } from "@/logic/types/common-types/input-type";
 import { EnumGender } from "@/logic/modules/users/types/enum-gender";
+import { ServiceResponseDto } from "@/logic/types/common-types/service-response-dto";
 
 @Options({ components: { FormInput, CoButton } })
 export default class SignUp extends BaseComponent {
@@ -94,11 +104,19 @@ export default class SignUp extends BaseComponent {
   }
 
   async save() {
-    const result = await this.handleRequest<UserDto[]>(() =>
+    const result = await this.handleRequest<ServiceResponseDto<UserDto[]>>(() =>
       userAuthenticationLogic.save(this.user)
     );
 
-    if (!!result?.length) this.succsess("Kaydet İşlemi Başarılı.");
+    console.log("selam");
+
+    if (result?.errors.length) {
+      result.errors.forEach((e) =>
+        this.toast("danger", e.statusCode.toString(), e.errors.join(","))
+      );
+    }
+
+    if (!!result?.model.length) this.succsess("Kaydet İşlemi Başarılı.");
   }
 }
 </script>

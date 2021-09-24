@@ -3,6 +3,7 @@
     <div class="form-input-label mb-1" :style="{ color: labelColor }">
       {{ label }}
     </div>
+
     <input
       :value="computedValue"
       :type="inputType"
@@ -11,7 +12,6 @@
       :class="computedClaseses"
       @input="onInput($event)"
       :style="{
-        color: labelColor,
         maxWidth: maxWidth,
       }"
     />
@@ -70,7 +70,7 @@ export default class FormInput extends BaseComponent {
       ? dateUtils.toDateString(new Date(this.value))
       : this.value;
   }
-  
+
   get computedClaseses() {
     return [
       `form-control-${this.size}`,
@@ -87,7 +87,12 @@ export default class FormInput extends BaseComponent {
     for (const key in this.validations) {
       if (key == this.fieldName) {
         const data = this.validations[key] as string[];
-        items = data.map((d) => d.replace(this.fieldName, this.label));
+        items = data.map((d) => {
+          const firstIndex = d.indexOf("'");
+          const lastIndex = d.lastIndexOf("'");
+          const value = d.slice(firstIndex + 1, lastIndex);
+          return d.replace(value, this.label);
+        });
       }
     }
 

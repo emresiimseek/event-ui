@@ -10,6 +10,7 @@ class ActivityLogic {
     activityCategories: [],
     eventDate: "",
     description: "",
+    userActivities: [],
   });
 }
 

@@ -53,8 +53,7 @@ export default class BaseComponent extends Vue {
     this.loadings[uid] = true;
     const result = await request();
 
-    if (result?.errors?.response?.data?.errors)
-      this.validations = result.errors.response.data.errors;
+    this.validations = result?.errors?.response?.data?.errors ?? {};
 
     if (result.errors) this.toast("danger", String(result.errors.message));
 

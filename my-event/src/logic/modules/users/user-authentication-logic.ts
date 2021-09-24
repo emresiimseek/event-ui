@@ -13,7 +13,8 @@ class UserAuthenticationLogic {
       user
     );
 
-  save = (user: UserDto) => apiBase.postRequest<UserDto[]>("users", user);
+  save = (user: UserDto) =>
+    apiBase.postRequest<ServiceResponseDto<UserDto[]>>("users", user);
 
   defaultDto(): UserDto {
     return {
