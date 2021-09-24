@@ -30,7 +30,6 @@
           :buttonLoading="isAnyLoading"
           buttonText="Giriş"
           color="light"
-          is-outline
           size="sm"
           class="mx-2"
           icon="fas fa-sign-in-alt"
@@ -39,9 +38,9 @@
 
         <co-button
           @button-clicked="toSignIn"
+          :buttonLoading="isAnyLoading"
           buttonText="Kaydol"
           color="light"
-          is-outline
           size="sm"
           class="mx-2 mb-3"
           icon="fas fa-align-left"

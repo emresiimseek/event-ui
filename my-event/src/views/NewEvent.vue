@@ -1,23 +1,43 @@
 <template>
   <co-page-layout mainClass="flex-1 justify-content-center  d-flex  p-4">
-    <div class="d-flex flex-column bg-light rounded gap-2 p-3">
+    <div
+      class="
+        d-flex
+        flex-column
+        bg-light
+        rounded
+        new-event-form-container
+        gap-2
+        p-3
+      "
+    >
       <form-input
         v-model:value="activity.title"
         size="sm"
         label="Başlık"
         label-color="black"
+        :validations="validations"
+        fieldName="Title"
+        maxWidth="300px"
       ></form-input>
       <form-input
         v-model:value="activity.description"
         size="sm"
         label="Açıklama"
         label-color="black"
+        :validations="validations"
+        fieldName="Description"
+        maxWidth="300px"
       ></form-input>
       <form-input
+        v-model:value="activity.eventDate"
         size="sm"
         input-type="datetime-local"
         label="Tarih"
         label-color="black"
+        maxWidth="300px"
+        :fieldName="EventDate"
+        :validations="validations"
       ></form-input>
       <co-select
         label="Kategiriler"
@@ -76,12 +96,16 @@ export default class NewEvent extends BaseComponent {
   }
 
   async saveActivity() {
-    this.activity.activitysCategory.push({
+    this.activity.activityCategories = [];
+
+    this.activity.activityCategories.push({
       categoryId: this.selectedCategory,
       activityId: 0,
     });
 
-    var result = await activityLogic.save(this.activity);
+    const result = await this.handleRequest<Activity>(() =>
+      activityLogic.save(this.activity)
+    );
   }
 
   async getCategories() {
@@ -96,5 +120,8 @@ export default class NewEvent extends BaseComponent {
 }
 </script>
 
-<style>
+<style scoped>
+.new-event-form-container {
+  max-width: 400px;
+}
 </style>

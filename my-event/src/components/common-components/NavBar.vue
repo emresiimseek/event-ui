@@ -15,7 +15,7 @@
         <router-link to="/login">Profil</router-link>
         <co-button
           @click="toCreateEvent"
-          color="secondary"
+          color="dark"
           icon="far fa-calendar-alt"
           size="sm"
           is-outline
@@ -23,12 +23,11 @@
         />
       </div>
       <div class="d-flex icon-container justify-content-center col-2 gap-3">
-       
         <span class="hoverable d-inline-flex align-items-center"
           ><i class="far fa-user"></i
           ><span class="text-capitalize font-2">{{ user }}</span>
         </span>
-        
+
         <span class="hoverable"><i class="fas fa-cog"></i></span>
       </div>
     </nav>

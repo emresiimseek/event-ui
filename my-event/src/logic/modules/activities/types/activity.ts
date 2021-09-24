@@ -1,9 +1,11 @@
 import { Category } from "../../categories/types/category";
-import { ActivitysCategory } from "./activitys-categories";
+import { ActivityCategories } from "./activitys-categories";
+import { UserActivities } from "./user-activities";
 
 export interface Activity {
   title?: string;
   description: string;
-  activitysCategory: ActivitysCategory[];
+  activityCategories: ActivityCategories[];
+  userActivities?: UserActivities[];
   eventDate: string;
 }
