@@ -50,11 +50,9 @@ export default class BaseComponent extends Vue {
     request: () => Promise<ApiBaseResponse<TType>>
   ): Promise<TType | undefined> {
     const uid = uuidUtils.uuidv4();
-
     this.loadings[uid] = true;
-
-    console.log("handleRequest");
     const result = await request();
+
     if (result?.errors?.response?.data?.errors)
       this.validations = result.errors.response.data.errors;
 

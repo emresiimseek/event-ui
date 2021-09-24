@@ -1,20 +1,24 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex hoverable">
     <button
       @click="buttonClicked"
       type="button"
       title="test"
-      class="btn mb-1 position-relative"
+      class="btn mb-1 position-relative co-button"
       :class="computedClass"
     >
-      <beat-loader
-        v-if="buttonLoading"
-        :loading="buttonLoading"
-        :color="laodingColor"
-        size="15px"
-        class="m-auto"
-      >
-      </beat-loader>
+      <div class="d-flex justify-content-center" v-if="buttonLoading">
+        <co-loading
+          :spinnerLoading="buttonLoading"
+          type="clip"
+          class="m-auto button-loading"
+          size="15px"
+          color="black"
+        />
+
+        <span class="font-2 ml-1 flex-1"> {{ buttonText }}</span>
+      </div>
+
       <span class="d-flex align-items-center" v-else>
         <i :class="[icon]"></i>
         <span class="flex-1 font-2 ml-1"> {{ buttonText }}</span>
@@ -23,9 +27,9 @@
   </div>
 </template>
 <script lang='ts'>
+import CoLoading from "./CoLoading.vue";
 import { Options, Vue } from "vue-class-component";
 import BaseComponent from "./BaseComponent.vue";
-import BeatLoader from "vue-spinner/src/ClipLoader.vue";
 
 @Options({
   props: {
@@ -38,7 +42,7 @@ import BeatLoader from "vue-spinner/src/ClipLoader.vue";
     icon: String,
     laodingColor: { type: String, default: "white" },
   },
-  components: { BaseComponent, BeatLoader },
+  components: { BaseComponent, CoLoading },
 })
 export default class CoButton extends BaseComponent {
   color!: String;
@@ -71,13 +75,17 @@ export default class CoButton extends BaseComponent {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .flex-1 {
   flex: 1;
 }
 
 .ml-1 {
   margin-left: 6px;
+}
+
+.co-button {
+  min-width: 100px !important;
 }
 </style>
 

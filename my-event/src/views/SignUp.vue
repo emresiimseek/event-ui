@@ -50,28 +50,26 @@
         fieldName="Password"
         :validations="validations"
       />
-      <co-button
-        @button-clicked="save"
-        :buttonLoading="isAnyLoading"
-        buttonText="Kaydet"
-        color="light"
-        is-outline
-        size="sm"
-        class="mx-2 m-auto"
-        icon="fas fa-save"
-        fillWidth
-      />
-      <co-button
-        @button-clicked="toLogin"
-        :buttonLoading="isAnyLoading"
-        buttonText="Giriş"
-        color="light"
-        is-outline
-        size="sm"
-        class="mx-2 mb-3 m-auto"
-        icon="fas fa-arrow-left"
-        fill-width
-      />
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        <co-button
+          @button-clicked="save"
+          :buttonLoading="isAnyLoading"
+          buttonText="Kaydet"
+          color="light"
+          size="sm"
+          class="mx-2 m-auto"
+          icon="fas fa-save"
+        />
+        <co-button
+          @button-clicked="toLogin"
+          :buttonLoading="isAnyLoading"
+          buttonText="Giriş"
+          color="light"
+          size="sm"
+          class="mx-2 mb-3 m-auto"
+          icon="fas fa-arrow-left"
+        />
+      </div>
     </div>
   </div>
 </template>
