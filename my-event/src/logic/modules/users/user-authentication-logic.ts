@@ -13,6 +13,10 @@ class UserAuthenticationLogic {
       user
     );
 
+  get(url: string) {
+    return apiBase.getRequest<UserDto>(url);
+  }
+
   save = (user: UserDto) =>
     apiBase.postRequest<ServiceResponseDto<UserDto[]>>("users", user);
 

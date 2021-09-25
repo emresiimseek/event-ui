@@ -6,6 +6,10 @@ class DateUtils {
       .toISOString()
       .split(".")[0];
   }
+
+  nowApi() {
+    return new Date();
+  }
 }
 
 export const dateUtils = new DateUtils();

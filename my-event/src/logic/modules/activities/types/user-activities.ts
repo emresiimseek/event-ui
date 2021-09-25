@@ -1,4 +1,4 @@
 export interface UserActivities {
-  categoryId: number;
+  userId: number;
   activityId: number;
 }

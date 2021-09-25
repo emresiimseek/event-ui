@@ -1,4 +1,5 @@
 import { apiBase, ApiBaseResponse } from "@/logic/api/api-base";
+import { dateUtils } from "@/logic/utilities/date-utils";
 import { Activity } from "./types/activity";
 
 class ActivityLogic {
@@ -6,9 +7,13 @@ class ActivityLogic {
     return apiBase.postRequest<Activity>("activities", activity);
   }
 
+  getAll(userId: number) {
+    return apiBase.postRequest<Activity[]>("activities", { userId: userId });
+  }
+
   defaultModel = (): Activity => ({
     activityCategories: [],
-    eventDate: "",
+    eventDate: dateUtils.nowApi(),
     description: "",
     userActivities: [],
   });

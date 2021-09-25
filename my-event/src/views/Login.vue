@@ -21,6 +21,9 @@
         label="Kullanıcı Adı"
         clasess="mb-2"
         labelColor="white"
+        :validations="validations"
+        fieldName="UserName"
+        maxWidth="194px"
       />
       <form-input
         v-model:value="user.password"
@@ -29,9 +32,12 @@
         size="sm"
         label="Parola"
         clasess="mb-1"
+        :validations="validations"
+        fieldName="Password"
+        maxWidth="194px"
       />
 
-      <div class="text-white font-1 text-end mb-4 hoverable">
+      <div class="text-white font-0 text-end mb-3 mt-2 hoverable">
         Parolana mı Unuttun?
       </div>
       <div class="d-flex flex-column">
@@ -106,7 +112,12 @@ export default class Login extends BaseComponent {
 
   messages: string[] = [];
 
-  user: UserAuthenticationDto = { userName: "", password: "", token: "" };
+  user: UserAuthenticationDto = {
+    userName: "",
+    password: "",
+    token: "",
+    id: 0,
+  };
 
   userNameChanged(value: string) {
     this.user.userName = value;

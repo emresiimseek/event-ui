@@ -6,6 +6,6 @@ export interface Activity {
   title?: string;
   description: string;
   activityCategories: ActivityCategories[];
-  userActivities?: UserActivities[];
-  eventDate: string;
+  userActivities: UserActivities[];
+  eventDate: Date;
 }
