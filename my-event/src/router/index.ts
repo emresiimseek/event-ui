@@ -45,6 +45,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/newevent",
         component: () => import("@/views/NewEvent.vue"),
       },
+      {
+        name: "profile",
+        path: "/profile",
+        component: () => import("@/views/Profile.vue"),
+      },
     ],
   },
 ];

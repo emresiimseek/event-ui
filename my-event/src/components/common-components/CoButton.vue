@@ -3,7 +3,6 @@
     <button
       @click="buttonClicked"
       type="button"
-      title="test"
       class="btn mb-1 position-relative co-button"
       :class="computedClass"
     >
@@ -19,9 +18,11 @@
         <span class="font-2 ml-1 flex-1"> {{ buttonText }}</span>
       </div>
 
-      <span class="d-flex align-items-center" v-else>
+      <span class="d-flex align-items-center justify-content-center" v-else>
         <i :class="[icon]"></i>
-        <span class="flex-1 font-2 ml-1"> {{ buttonText }}</span>
+        <span v-if="buttonText" class="flex-1 font-2 ml-1">
+          {{ buttonText }}</span
+        >
       </span>
     </button>
   </div>
@@ -82,10 +83,6 @@ export default class CoButton extends BaseComponent {
 
 .ml-1 {
   margin-left: 6px;
-}
-
-.co-button {
-  min-width: 100px !important;
 }
 </style>
 

@@ -1,13 +1,13 @@
 <template>
-  <div class="d-flex flex-column position-relative" :class="computedClass">
+  <div class="d-flex flex-column" :class="computedClass">
     <div class="d-flex justify-content-center">
-      <div :class="leftClass">
+      <div :class="leftClass" class="left">
         <slot name="left-side"></slot>
       </div>
-      <div :class="mainClass" class="mr-1 ml-1">
+      <div :class="mainClass" class="main">
         <slot> </slot>
       </div>
-      <div :class="rightClass">
+      <div :class="rightClass" class="right">
         <slot name="right-side"></slot>
       </div>
     </div>
@@ -24,7 +24,6 @@ import BaseComponent from "./BaseComponent.vue";
     rightClass: String,
     leftClass: String,
     mainClass: String,
-    hasScroll: Boolean,
   },
 })
 export default class CoPageLayout extends BaseComponent {
@@ -32,12 +31,11 @@ export default class CoPageLayout extends BaseComponent {
   rightClass!: string;
   leftClass!: string;
   mainClass!: string;
-  hasScroll!: boolean;
 
   get computedClass() {
-    return [`position-${this.position}`];
+    return [this.position ? `position-${this.position}` : ""];
   }
 }
 </script>
-<style scoped>
+<style>
 </style>

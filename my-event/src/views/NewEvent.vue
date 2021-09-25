@@ -1,16 +1,6 @@
 <template>
-  <co-page-layout mainClass="flex-1 justify-content-center  d-flex  p-4">
-    <div
-      class="
-        d-flex
-        flex-column
-        bg-light
-        rounded
-        new-event-form-container
-        gap-2
-        p-3
-      "
-    >
+  <co-page-layout mainClass="flex-1 justify-content-center d-flex  p-4">
+    <div class="d-flex flex-column bg-light rounded gap-2 p-3">
       <form-input
         v-model:value="activity.title"
         size="sm"
@@ -45,17 +35,17 @@
         v-model:value="selectedCategory"
         :items="items"
       ></co-select>
-
-      <co-button
-        @click="saveActivity"
-        buttonText="Kaydet"
-        color="dark"
-        size="sm"
-        class="m-auto"
-        is-outline
-        :buttonLoading="isAnyLoading"
-        laodingColor="black"
-      />
+      <div class="d-flex justify-content-end mt-1">
+        <co-button
+          @click="saveActivity"
+          buttonText="Kaydet"
+          color="dark"
+          size="sm"
+          is-outline
+          :buttonLoading="isAnyLoading"
+          laodingColor="black"
+        />
+      </div>
     </div>
   </co-page-layout>
 </template>
@@ -72,6 +62,7 @@ import { categoriesLogic } from "@/logic/modules/categories/categories-logic";
 import { activityLogic } from "@/logic/modules/activities/activity-logic";
 import { LookUp } from "@/logic/modules/users/types/look-up";
 import { Activity } from "@/logic/modules/activities/types/activity";
+import { account } from "@/store/modules/users";
 
 @Options({
   components: {
@@ -91,21 +82,37 @@ export default class NewEvent extends BaseComponent {
 
   activity: Activity = activityLogic.defaultModel();
 
+  get userId() {
+    return account.state.user.id;
+  }
+
   created() {
     this.getCategories();
   }
 
   async saveActivity() {
     this.activity.activityCategories = [];
+    this.activity.userActivities = [];
 
-    this.activity.activityCategories.push({
-      categoryId: this.selectedCategory,
-      activityId: 0,
-    });
+    if (this.selectedCategory)
+      this.activity.activityCategories.push({
+        categoryId: this.selectedCategory,
+        activityId: 0,
+      });
+
+    console.log("saveActivity");
+
+    if (this.userId)
+      this.activity.userActivities.push({
+        userId: this.userId,
+        activityId: 0,
+      });
 
     const result = await this.handleRequest<Activity>(() =>
       activityLogic.save(this.activity)
     );
+
+    if (result) this.succsess("Kayıt İşlemi başarılı.");
   }
 
   async getCategories() {
@@ -121,7 +128,4 @@ export default class NewEvent extends BaseComponent {
 </script>
 
 <style scoped>
-.new-event-form-container {
-  max-width: 400px;
-}
 </style>

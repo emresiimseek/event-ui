@@ -22,11 +22,23 @@
           buttonText="Etkinlik Oluştur"
         />
       </div>
-      <div class="d-flex icon-container justify-content-center col-2 gap-3">
-        <span class="hoverable d-inline-flex align-items-center"
-          ><i class="far fa-user"></i
-          ><span class="text-capitalize font-2">{{ user }}</span>
-        </span>
+      <div
+        class="
+          d-flex
+          icon-container
+          justify-content-center
+          align-items-center
+          col-2
+          gap-3
+        "
+      >
+        <co-button
+          @click="toProfile"
+          class="profile-button"
+          color="dark"
+          is-outline
+          icon="far fa-user"
+        ></co-button>
 
         <span class="hoverable"><i class="fas fa-cog"></i></span>
       </div>
@@ -53,6 +65,10 @@ export default class NavBar extends BaseComponent {
     this.$router.push("newevent");
   }
 
+  toProfile() {
+    this.$router.push("profile");
+  }
+
   get user() {
     const jsonData = sessionStorage.getItem("authentication") ?? "";
     const userDto = JSON.parse(jsonData) as UserAuthenticationDto;
@@ -60,7 +76,7 @@ export default class NavBar extends BaseComponent {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 nav a {
   color: black;
   text-decoration: none;
@@ -82,6 +98,12 @@ nav .menu-text a:hover {
   height: 60px;
   display: flex;
   flex: 1;
+}
+
+.profile-button ::v-deep button {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }
 </style>
 
