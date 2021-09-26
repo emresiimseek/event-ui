@@ -3,7 +3,7 @@
     <button
       @click="buttonClicked"
       type="button"
-      class="btn mb-1 position-relative co-button"
+      class="btn position-relative co-button"
       :class="computedClass"
     >
       <div class="d-flex justify-content-center" v-if="buttonLoading">
@@ -41,6 +41,7 @@ import BaseComponent from "./BaseComponent.vue";
     fillWidth: Boolean,
     buttonLoading: Boolean,
     icon: String,
+    buttonClasess: String,
     laodingColor: { type: String, default: "white" },
   },
   components: { BaseComponent, CoLoading },
@@ -53,6 +54,7 @@ export default class CoButton extends BaseComponent {
   buttonLoading!: Boolean;
   icon!: String;
   laodingColor!: String;
+  buttonClasess!: String;
 
   get colorClass() {
     return `btn-${this.isOutline ? "outline-" : ""}${this.color}`;
@@ -66,7 +68,7 @@ export default class CoButton extends BaseComponent {
   }
 
   get computedClass() {
-    return [this.colorClass, this.buttonSize, this.width];
+    return [this.colorClass, this.buttonSize, this.width, this.buttonClasess];
   }
 
   buttonClicked() {

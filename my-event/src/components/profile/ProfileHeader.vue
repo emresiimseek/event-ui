@@ -1,13 +1,9 @@
 <template>
-  <div class="d-flex flex-column border rounded">
-    <div class="d-flex gap-1">
-      <co-button
-        @click="toProfile"
-        class="profile-user-button col-4"
-        color="dark"
-        is-outline
-        icon="far fa-user fa-3x"
-      ></co-button>
+  <div class="d-flex flex-column font-1 border rounded profile-header p-2">
+    <div class="d-flex align-items-center center gap-2">
+      <div class="profile-user-icon w-20 d-flex justify-content-center">
+        <i class="far fa-user-circle fa-4x"></i>
+      </div>
       <div class="d-flex flex-column gap-1">
         <div>
           <div class="text-capitalize bold-text">
@@ -20,9 +16,9 @@
             {{ user.email }}
           </div>
         </div>
-        <div class="font-1 bold-text">
-          <div>Arkadaşlar:0</div>
-          <div>Takipçiler:0</div>
+        <div class="font-1 bold-text d-inline-flex gap-2">
+          <div>Arkadaşlar: 0</div>
+          <div>Takipçiler: 0</div>
         </div>
         <div></div>
       </div>
@@ -50,6 +46,22 @@ export default class ProfileHeader extends BaseComponent {}
     padding: 20px;
     width: 100px;
     height: 100px;
+  }
+}
+.profile-header {
+  width: 60% !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .profile-header {
+    width: 70% !important;
+    margin: auto;
+
+    .profile-user-icon {
+      svg {
+        font-size: 3em;
+      }
+    }
   }
 }
 </style>

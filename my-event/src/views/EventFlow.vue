@@ -4,9 +4,7 @@
     class="event-flow"
   >
     <div class="d-flex flex-row flex-1">
-      <div
-        class="card-container w-100 flex-1 justify-content-end p-3 d-flex jus"
-      >
+      <div class="card-container w-100 flex-1 justify-content-end p-3 d-flex">
         <div class="w-75">
           <co-card></co-card>
           <co-card></co-card>
