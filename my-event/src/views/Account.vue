@@ -19,7 +19,7 @@
   </co-page-layout>
 </template>
 <script lang="ts">
-import CoPageLayout from "@/components/common-components/CoPageLayout.vue";
+import CoPageLayout from "../components/common-components/CoPageLayout.vue";
 import CoLoading from "../components/common-components/CoLoading.vue";
 import { Options, Vue } from "vue-class-component";
 import CoButton from "../components/common-components/CoButton.vue";

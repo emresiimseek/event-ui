@@ -1,22 +1,33 @@
 <template>
   <div class="font-2 nav-var -bottom bg-white border-bottom">
     <nav id="menu" class="d-flex flex-row align-items-center flex-1">
-      <span class="font-3 col-2 bold-text text-center hoverable"
+      <span
+        @click="toEventFlow"
+        class="font-3 nav-brand col-2 bold-text text-center hoverable"
         >BeSocialize</span
       >
 
-      <div class="col-4 d-flex justify-content-end">
-        <search-input class="w-50" />
+      <div class="search-area col-4 d-flex justify-content-end">
+        <search-input class="search-input w-50" />
       </div>
 
-      <div class="d-flex justify-content-end align-items-center font-2 col-4">
+      <div
+        class="
+          d-flex
+          nav-links
+          justify-content-end
+          align-items-center
+          font-2
+          col-4
+        "
+      >
         <router-link to="/flow">Anasayfa</router-link>
         <router-link to="/flow">Etkinlikler</router-link>
         <router-link to="/login">Profil</router-link>
         <co-button
           @click="toCreateEvent"
           color="dark"
-          icon="far fa-calendar-alt"
+          icon="far fa-calendar-alt "
           size="sm"
           is-outline
           buttonText="Etkinlik Oluştur"
@@ -24,6 +35,7 @@
       </div>
       <div
         class="
+          nav-buttons
           d-flex
           icon-container
           justify-content-center
@@ -33,14 +45,16 @@
         "
       >
         <co-button
+          class="profile-button"
+          icon="fas fa-cog"
+          buttonClasess="m-0 p-0"
+        ></co-button>
+        <co-button
           @click="toProfile"
           class="profile-button"
-          color="dark"
-          is-outline
-          icon="far fa-user"
+          icon="far fa-user-circle icon-fon-size-default"
+          buttonClasess="m-0 p-0"
         ></co-button>
-
-        <span class="hoverable"><i class="fas fa-cog"></i></span>
       </div>
     </nav>
   </div>
@@ -67,6 +81,10 @@ export default class NavBar extends BaseComponent {
 
   toProfile() {
     this.$router.push("profile");
+  }
+
+  toEventFlow() {
+    this.$router.push("flow");
   }
 
   get user() {
@@ -100,10 +118,33 @@ nav .menu-text a:hover {
   flex: 1;
 }
 
-.profile-button ::v-deep button {
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+.nav-buttons {
+  svg {
+    font-size: 1.2em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .nav-links {
+    display: none !important;
+  }
+
+  .nav-buttons {
+    width: 25%;
+    margin: 0;
+    gap: 0.5rem !important;
+  }
+
+  .nav-brand {
+    width: 35%;
+  }
+
+  .search-area {
+    width: 40%;
+    .search-input {
+      width: 100% !important;
+    }
+  }
 }
 </style>
 

@@ -40,7 +40,7 @@
       <div class="text-white font-0 text-end mb-3 mt-2 hoverable">
         Parolana mı Unuttun?
       </div>
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column gap-1">
         <co-button
           @button-clicked="submit"
           :buttonLoading="isAnyLoading"
