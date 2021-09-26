@@ -37,3 +37,5 @@ export default class CoPageLayout extends BaseComponent {
   }
 }
 </script>
+<style>
+</style>
