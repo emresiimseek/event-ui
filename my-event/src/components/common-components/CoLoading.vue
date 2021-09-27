@@ -1,5 +1,5 @@
 <template>
-  <div class="" :class="{ overlay: overlay }">
+  <div :class="{ overlay: overlay }">
     <pulse-loader
       v-if="type == 'pulse'"
       :loading="spinnerLoading"
@@ -126,13 +126,13 @@ import SquareLoader from "vue-spinner/src/SquareLoader.vue";
 import SyncLoader from "vue-spinner/src/SyncLoader.vue";
 import ClipLoader from "vue-spinner/src/ClipLoader.vue";
 import FadeLoader from "vue-spinner/src/FadeLoader.vue";
-import GridLoader from "vue-spinner/src/GridLoader.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 import RingLoader from "vue-spinner/src/RingLoader.vue";
 import BeatLoader from "vue-spinner/src/BeatLoader.vue";
 import DotLoader from "vue-spinner/src/DotLoader.vue";
+import GridLoader from "vue-spinner/src/GridLoader.vue";
 @Options({
   components: {
     BounceLoader,
@@ -145,12 +145,12 @@ import DotLoader from "vue-spinner/src/DotLoader.vue";
     SyncLoader,
     ClipLoader,
     FadeLoader,
-    GridLoader,
     MoonLoader,
     PacmanLoader,
     PulseLoader,
     BeatLoader,
     DotLoader,
+    GridLoader,
   },
   props: {
     type: String,
@@ -168,7 +168,7 @@ export default class CoLoading extends BaseComponent {
 }
 </script>
 
-<style>
+<style lang="scss">
 .overlay {
   position: absolute;
   width: 100%;

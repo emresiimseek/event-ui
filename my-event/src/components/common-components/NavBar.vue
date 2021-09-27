@@ -23,7 +23,7 @@
       >
         <router-link to="/flow">Anasayfa</router-link>
         <router-link to="/flow">Etkinlikler</router-link>
-        <router-link to="/login">Profil</router-link>
+        <router-link to="">Profil</router-link>
         <co-button
           @click="toCreateEvent"
           color="dark"
