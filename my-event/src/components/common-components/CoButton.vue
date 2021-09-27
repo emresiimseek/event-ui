@@ -6,7 +6,7 @@
       class="btn position-relative co-button"
       :class="computedClass"
     >
-      <div class="d-flex justify-content-center" v-if="buttonLoading">
+      <div class="d-flex loading-container" v-if="buttonLoading">
         <co-loading
           :spinnerLoading="buttonLoading"
           type="clip"
@@ -85,6 +85,16 @@ export default class CoButton extends BaseComponent {
 
 .ml-1 {
   margin-left: 6px;
+}
+
+button :deep() {
+  .loading-container {
+    .button-loading {
+      .v-spinner {
+        display: flex !important;
+      }
+    }
+  }
 }
 </style>
 

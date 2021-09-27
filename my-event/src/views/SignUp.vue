@@ -108,8 +108,6 @@ export default class SignUp extends BaseComponent {
       userAuthenticationLogic.save(this.user)
     );
 
-    console.log("selam");
-
     if (result?.errors.length) {
       result.errors.forEach((e) =>
         this.toast("danger", e.statusCode.toString(), e.errors.join(","))

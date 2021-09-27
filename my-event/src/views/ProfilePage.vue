@@ -3,10 +3,35 @@
     <profile-header :user="user" class="mb-3 m-auto" />
 
     <div class="card-container">
-      <co-card></co-card>
-      <co-card></co-card>
-      <co-card></co-card>
-      <co-card></co-card>
+      <co-card v-for="item in activities" :key="item.id">
+        <div
+          class="
+            fixed-bottom
+            position-absolute
+            bottom-0
+            border-top
+            p-1
+            text-capitalize
+            fill-height-10
+            d-flex
+            bg-light
+            flex-column
+            justify-content-around
+          "
+        >
+          <div class="mx-2 d-inline-flex">
+            <span class="flex-1">
+              {{ item.title }}
+            </span>
+            <span> {{ item.eventDate }}</span>
+          </div>
+          <div class="mx-2">
+            <span v-for="cat in item.activityCategories" :key="cat.id">
+              {{ cat.title }}
+            </span>
+          </div>
+        </div>
+      </co-card>
     </div>
   </co-page-layout>
 </template>
@@ -23,19 +48,31 @@ import { userAuthenticationLogic } from "@/logic/modules/users/user-authenticati
 import { account } from "@/store/modules/users";
 import { UserDto } from "@/logic/types/common-types/user-dto";
 import { activityLogic } from "@/logic/modules/activities/activity-logic";
+import { userLogic } from "@/logic/modules/users/user-logic";
+import { UserProfileActivityDto } from "@/logic/modules/users/types/user-profile-activity";
 
 @Options({
   components: { CoButton, CoCard, ProfileHeader, CoLoading, CoPageLayout },
 })
 export default class ProfilePage extends BaseComponent {
   user: UserDto = userAuthenticationLogic.defaultDto();
+  activities: UserProfileActivityDto[] = [];
 
   created() {
     this.getUser();
+    this.getActivities();
   }
 
   get userId() {
     return account.state.user.id;
+  }
+
+  async getActivities() {
+    var result = await this.handleRequest(() =>
+      userLogic.getUserActivities(this.userId)
+    );
+
+    if (result) this.activities = result;
   }
 
   async getUser() {
