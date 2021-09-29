@@ -51,7 +51,6 @@
           icon="fas fa-sign-in-alt"
           fill-width
         />
-
         <co-button
           @button-clicked="toSignIn"
           :buttonLoading="isAnyLoading"

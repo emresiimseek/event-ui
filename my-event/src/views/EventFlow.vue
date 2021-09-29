@@ -6,6 +6,18 @@
     <div class="d-flex flex-row flex-1">
       <div class="card-container w-100 flex-1 justify-content-end p-3 d-flex">
         <div class="w-75">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+          quas unde itaque maiores illo repellendus labore ad, sapiente
+          doloribus. Magni, quia fuga. Est pariatur, blanditiis culpa animi sit
+          fugiat fugit deserunt aperiam laboriosam, eum, qui quis sed provident
+          possimus vel porro ducimus suscipit. Veritatis et iusto blanditiis
+          harum, iure architecto maiores quo tempora reiciendis cumque possimus
+          quas ad molestiae incidunt? Illo dolore dolores culpa in sint mollitia
+          consequuntur, aspernatur aliquid. Dolor architecto rerum facilis
+          repellat suscipit accusantium porro. Nulla omnis quam culpa ut ducimus
+          suscipit, illum eius voluptatibus neque inventore corrupti dignissimos
+          distinctio id nesciunt possimus ipsum nemo, cupiditate officiis!
+
           <co-card></co-card>
           <co-card></co-card>
           <co-card></co-card>
@@ -35,8 +47,9 @@
 </template>
 
 <script lang="ts" >
-import CoPageLayout from "../components/common-components/CoPageLayout.vue";
 import FormInput from "../components/common-components/FormInput.vue";
+import CoPopover from "../components/common-components/CoPopover.vue";
+import CoPageLayout from "../components/common-components/CoPageLayout.vue";
 import BaseComponent from "@/components/common-components/BaseComponent.vue";
 import { Options } from "vue-class-component";
 import CoCard from "../components/common-components/CoCard.vue";
@@ -44,7 +57,13 @@ import { Activity } from "@/logic/modules/activities/types/activity";
 import { activityLogic } from "@/logic/modules/activities/activity-logic";
 import { account } from "@/store/modules/users";
 @Options({
-  components: { CoCard, BaseComponent, FormInput, CoPageLayout },
+  components: {
+    CoCard,
+    BaseComponent,
+    FormInput,
+    CoPageLayout,
+    CoPopover,
+  },
 })
 export default class EventFlow extends BaseComponent {
   get userId() {
