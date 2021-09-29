@@ -100,8 +100,6 @@ export default class NewEvent extends BaseComponent {
         activityId: 0,
       });
 
-    console.log("saveActivity");
-
     if (this.userId)
       this.activity.userActivities.push({
         userId: this.userId,

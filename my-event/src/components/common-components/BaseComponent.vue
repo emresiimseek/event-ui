@@ -6,7 +6,7 @@ import { Vue, Options } from "vue-class-component";
 import { createToast, ToastType } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 import { AxiosResponse } from "axios";
-import { uuidUtils } from "@/logic/utilities/UuidUtils";
+import { uuidUtils } from "@/logic/utilities/uuid-utils";
 import { ServiceResponseDto } from "@/logic/types/common-types/service-response-dto";
 import { InputType } from "@/logic/types/common-types/input-type";
 import { UserDto } from "@/logic/types/common-types/user-dto";

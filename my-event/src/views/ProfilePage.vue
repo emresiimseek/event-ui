@@ -1,7 +1,6 @@
 <template>
   <co-page-layout mainClass="w-50" class="profile-page">
     <profile-header :user="user" class="mb-3 m-auto" />
-
     <div class="card-container">
       <co-card v-for="item in activities" :key="item.id">
         <div
@@ -19,14 +18,18 @@
             justify-content-around
           "
         >
-          <div class="mx-2 d-inline-flex">
-            <span class="flex-1">
+          <div class="mx-2 d-inline-flex test">
+            <span class="flex-1 text-decoration-underline">
               {{ item.title }}
             </span>
             <span> {{ item.eventDate }}</span>
           </div>
           <div class="mx-2">
-            <span v-for="cat in item.activityCategories" :key="cat.id">
+            <span
+              v-for="cat in item.categories"
+              :key="cat.id"
+              class="bg-dark text-white p-1 rounded font-1"
+            >
               {{ cat.title }}
             </span>
           </div>

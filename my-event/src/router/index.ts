@@ -68,8 +68,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const isAuthenticated = routeGuard.isAuthenticated();
 
-  console.log("beforeEach");
-
   if (!isAuthenticated && !!to.meta.auth) {
     next({
       name: "login",

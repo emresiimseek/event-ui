@@ -7,8 +7,6 @@ class RouteGuard {
   private getToken = () => {
     const value = sessionStorage.getItem("authentication");
 
-    console.log("getToken");
-
     if (!!!value) return false;
 
     const userDto = JSON.parse(value) as UserAuthenticationDto;

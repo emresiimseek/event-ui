@@ -44,7 +44,7 @@ import BaseComponent from "./BaseComponent.vue";
   props: {
     value: String,
     placeHolder: String,
-    inputType: Object as PropType<InputType>,
+    inputType: String,
     size: String,
     label: String,
     clasess: String,
@@ -101,7 +101,6 @@ export default class FormInput extends BaseComponent {
 
   onInput(event: any) {
     let localValue = "";
-    console.log("test");
 
     if (this.inputType == "datetime-local")
       localValue = new Date(Date.parse(event.target.value)).toJSON();
