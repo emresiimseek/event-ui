@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded card-container mb-3 position-relative">
+  <div class="border rounded card-container mb-3 position-relative bg-light">
     <slot></slot>
   </div>
 </template>

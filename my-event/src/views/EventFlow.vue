@@ -6,18 +6,12 @@
     <div class="d-flex flex-row flex-1">
       <div class="card-container w-100 flex-1 justify-content-end p-3 d-flex">
         <div class="w-75">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-          quas unde itaque maiores illo repellendus labore ad, sapiente
-          doloribus. Magni, quia fuga. Est pariatur, blanditiis culpa animi sit
-          fugiat fugit deserunt aperiam laboriosam, eum, qui quis sed provident
-          possimus vel porro ducimus suscipit. Veritatis et iusto blanditiis
-          harum, iure architecto maiores quo tempora reiciendis cumque possimus
-          quas ad molestiae incidunt? Illo dolore dolores culpa in sint mollitia
-          consequuntur, aspernatur aliquid. Dolor architecto rerum facilis
-          repellat suscipit accusantium porro. Nulla omnis quam culpa ut ducimus
-          suscipit, illum eius voluptatibus neque inventore corrupti dignissimos
-          distinctio id nesciunt possimus ipsum nemo, cupiditate officiis!
-
+          <co-button
+            @click="showModal"
+            buttonText="Tıkla"
+            class="m-1"
+          ></co-button>
+          <followers-modal v-model:value="isVisible"></followers-modal>
           <co-card></co-card>
           <co-card></co-card>
           <co-card></co-card>
@@ -26,7 +20,6 @@
           <co-card></co-card>
         </div>
       </div>
-
       <div class="pt-3 col-4 fixed-right-area">
         <div
           class="
@@ -35,18 +28,19 @@
             border
             bg-white
             position-fixed
-            p-3
+            p-2
             text-center
           "
         >
-          <span class="font-2">Başlık</span>
+          <span class="font-1 bold-text">Önerilenler</span>
         </div>
       </div>
     </div>
   </co-page-layout>
 </template>
-
 <script lang="ts" >
+import FollowersModal from "../components/profile/FollowersModal.vue";
+import CoButton from "../components/common-components/CoButton.vue";
 import FormInput from "../components/common-components/FormInput.vue";
 import CoPopover from "../components/common-components/CoPopover.vue";
 import CoPageLayout from "../components/common-components/CoPageLayout.vue";
@@ -63,9 +57,13 @@ import { account } from "@/store/modules/users";
     FormInput,
     CoPageLayout,
     CoPopover,
+    CoButton,
+    FollowersModal,
   },
 })
 export default class EventFlow extends BaseComponent {
+  isVisible: Boolean = false;
+
   get userId() {
     return account.state.user.id;
   }
@@ -73,12 +71,16 @@ export default class EventFlow extends BaseComponent {
   getEvents() {
     this.handleRequest<Activity[]>(() => activityLogic.getAll(this.userId));
   }
+
+  showModal() {
+    this.isVisible = true;
+  }
 }
 </script>
 <style lang="scss" scoped>
 .right-area {
-  height: 400px;
-  width: 20%;
+  height: 350px;
+  width: 16%;
   margin-left: 12px;
 }
 

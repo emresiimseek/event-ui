@@ -28,6 +28,8 @@
           @click="toCreateEvent"
           color="dark"
           icon="far fa-calendar-alt "
+          buttonClasess="pb-0 pt-0"
+          textSize="16px"
           size="sm"
           is-outline
           buttonText="Etkinlik Oluştur"
@@ -55,6 +57,12 @@
           icon="far fa-user-circle icon-fon-size-default"
           buttonClasess="m-0 p-0"
         ></co-button>
+        <co-button
+          @click="signOut"
+          class="profile-button"
+          icon="fas fa-sign-out-alt icon-fon-size-sm"
+          buttonClasess="m-0 p-0"
+        ></co-button>
       </div>
     </nav>
   </div>
@@ -75,22 +83,35 @@ import { UserAuthenticationDto } from "@/logic/modules/users/types/user-authenti
   components: { FormInput, BaseComponent, CoButton, SearchInput },
 })
 export default class NavBar extends BaseComponent {
+  userDto: Partial<UserDto> = {};
+
+  created() {
+    this.getUser();
+  }
+
   toCreateEvent() {
-    this.$router.push("newevent");
+    this.$router.push({
+      name: "newevent",
+    });
   }
 
   toProfile() {
-    this.$router.push("profile");
+    this.$router.push({ name: "profile", params: { userId: this.userDto.id } });
   }
 
   toEventFlow() {
-    this.$router.push("flow");
+    this.$router.push({
+      name: "flow",
+    });
   }
 
-  get user() {
+  signOut() {
+    sessionStorage.clear();
+    this.$router.push("login");
+  }
+  getUser() {
     const jsonData = sessionStorage.getItem("authentication") ?? "";
-    const userDto = JSON.parse(jsonData) as UserAuthenticationDto;
-    return userDto.userName;
+    this.userDto = JSON.parse(jsonData) as UserAuthenticationDto;
   }
 }
 </script>
