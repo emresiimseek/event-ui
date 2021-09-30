@@ -1,6 +1,11 @@
 <template>
   <co-page-layout mainClass="w-50" class="profile-page">
-    <profile-header :user="user" class="mb-3 m-auto" />
+    <profile-header
+      :user="user"
+      class="mb-3 m-auto"
+      @followed="getUser"
+      @unfollowed="getUser"
+    />
     <div class="card-container">
       <co-card v-for="item in activities" :key="item.id">
         <div
@@ -60,35 +65,43 @@ import { UserProfileActivityDto } from "@/logic/modules/users/types/user-profile
 export default class ProfilePage extends BaseComponent {
   user: UserDto = userAuthenticationLogic.defaultDto();
   activities: UserProfileActivityDto[] = [];
+  userId: number | null = null;
 
   created() {
+    this.userId = +this.$route.params.userId;
+
     this.getUser();
     this.getActivities();
   }
 
-  get userId() {
-    return account.state.user.id;
-  }
-
   async getActivities() {
+    const currentUserId = this.userId;
+    if (currentUserId === null) return;
+
     var result = await this.handleRequest(() =>
-      userLogic.getUserActivities(this.userId)
+      userLogic.getUserActivities(currentUserId)
     );
 
     if (result) this.activities = result;
   }
 
   async getUser() {
+    const currentUserId = this.userId;
+    if (currentUserId === null) return;
+
     var result = await this.handleRequest(() =>
-      userAuthenticationLogic.get(`users/${this.userId}`)
+      userAuthenticationLogic.get(`users/${currentUserId}`)
     );
 
     if (result) this.user = result;
   }
 
   async getEvents() {
+    const currentUserId = this.userId;
+    if (currentUserId === null) return;
+
     const result = await this.handleRequest(() =>
-      activityLogic.getAll(this.userId)
+      activityLogic.getAll(currentUserId)
     );
   }
 }

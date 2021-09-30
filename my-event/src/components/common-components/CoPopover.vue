@@ -6,14 +6,20 @@
     <slot></slot>
   </Popper>
 </template>
-
 <script lang="ts">
 import FormInput from "./FormInput.vue";
 import { Options } from "vue-class-component";
 import BaseComponent from "./BaseComponent.vue";
 import Popper from "vue3-popper";
 
-@Options({ components: { Popper, FormInput } })
+@Options({
+  components: { Popper, FormInput },
+  model: { prop: "value", value: "input" },
+  emits: ["update:value"],
+  props: {
+    value: Boolean,
+  },
+})
 export default class CoPopover extends BaseComponent {}
 </script>
 
@@ -26,7 +32,6 @@ export default class CoPopover extends BaseComponent {}
   --popper-theme-border-style: solid;
   --popper-theme-border-color: #eeeeee;
   --popper-theme-border-radius: 6px;
-  --popper-theme-padding: 150px;
   --popper-theme-box-shadow: 0 6px 20px -6px rgba(46, 45, 45, 0.25);
 }
 </style>

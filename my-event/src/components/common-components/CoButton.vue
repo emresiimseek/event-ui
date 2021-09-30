@@ -18,9 +18,16 @@
         <span class="font-2 ml-1 flex-1"> {{ buttonText }}</span>
       </div>
 
-      <span class="d-flex align-items-center justify-content-center" v-else>
-        <i :class="[icon]"></i>
-        <span v-if="buttonText" class="flex-1 font-2 ml-1">
+      <span
+        class="d-flex align-items-center justify-content-center gap-1"
+        v-else
+      >
+        <i v-if="icon" :class="[icon]"></i>
+        <span
+          v-if="buttonText"
+          class="flex-1 font-2"
+          :style="{ fontSize: textSize }"
+        >
           {{ buttonText }}</span
         >
       </span>
@@ -35,7 +42,7 @@ import BaseComponent from "./BaseComponent.vue";
 @Options({
   props: {
     buttonText: String,
-    color: String,
+    color: { String, default: "light" },
     isOutline: Boolean,
     size: String,
     fillWidth: Boolean,
@@ -43,6 +50,7 @@ import BaseComponent from "./BaseComponent.vue";
     icon: String,
     buttonClasess: String,
     laodingColor: { type: String, default: "white" },
+    textSize: String,
   },
   components: { BaseComponent, CoLoading },
 })

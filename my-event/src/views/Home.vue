@@ -2,7 +2,7 @@
   <div class="fill-height-10">
     <nav-bar class="w-100 fixed-top" />
   </div>
-  <router-view />
+  <router-view :key="param" />
   <div
     class="
       fixed-bottom
@@ -46,6 +46,10 @@ import { UserAuthenticationDto } from "@/logic/modules/users/types/user-authenti
 export default class Home extends BaseComponent {
   get userAuthenticationDto() {
     return JSON.parse(sessionStorage.getItem("authentication") ?? "");
+  }
+
+  get param() {
+    return this.$route.params;
   }
 
   created() {

@@ -28,6 +28,8 @@ class UserAuthenticationLogic {
       password: "",
       userName: "",
       token: "",
+      areFirendsWithMe: [],
+      iAmFriendsWith: [],
     };
   }
 }

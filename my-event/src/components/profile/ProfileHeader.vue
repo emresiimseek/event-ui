@@ -16,11 +16,30 @@
             {{ user.email }}
           </div>
         </div>
-        <div class="font-1 bold-text d-inline-flex gap-2">
-          <div>Arkadaşlar: 0</div>
-          <div>Takipçiler: 0</div>
+        <div class="font-1 d-inline-flex gap-2">
+          <div>Takipçi: {{ followersCount }}</div>
+          <div>Takip: {{ followingCount }}</div>
+          <co-button
+            v-if="isVisibleUnFollowButton"
+            @click="unFollow"
+            buttonText="Takipten Çık"
+            buttonClasess="font-1 p-1 pt-0 pb-0"
+            color="primary"
+            size="sm"
+            textSize="10px"
+            isOutline
+          ></co-button>
+          <co-button
+            v-else-if="isVisibleFollowButton"
+            @click="follow"
+            buttonText="Takip Et"
+            buttonClasess="font-1 p-1 pt-0 pb-0"
+            color="primary"
+            size="sm"
+            textSize="10px"
+            isOutline
+          ></co-button>
         </div>
-        <div></div>
       </div>
     </div>
   </div>
@@ -32,11 +51,58 @@ import { UserDto } from "@/logic/types/common-types/user-dto";
 import { PropType } from "@vue/runtime-core";
 import { Options } from "vue-class-component";
 import BaseComponent from "../common-components/BaseComponent.vue";
+import { account } from "@/store/modules/users";
+import { userLogic } from "@/logic/modules/users/user-logic";
+import { UserUser } from "@/logic/modules/users/types/user-user";
 @Options({
   components: { CoButton },
   props: { user: Object as PropType<UserDto> },
 })
-export default class ProfileHeader extends BaseComponent {}
+export default class ProfileHeader extends BaseComponent {
+  user!: UserDto;
+
+  get isVisibleFollowButton() {
+    return account.state.user.id != this.user.id;
+  }
+
+  get isVisibleUnFollowButton() {
+    return !!this.user.areFirendsWithMe.find(
+      (f) => f.userParentId == account.state.user.id
+    );
+  }
+
+  get followersCount() {
+    return this.user.areFirendsWithMe.length;
+  }
+
+  get followingCount() {
+    return this.user.iAmFriendsWith.length;
+  }
+
+  async follow() {
+    const userUser: UserUser = {
+      userParentId: account.state.user.id,
+      userChildId: this.user.id,
+    };
+
+    const data = await this.handleRequest(() => userLogic.follow(userUser));
+
+    if (data) this.succsess("Başarıyla Takip Edildi.");
+
+    this.$emit("followed");
+  }
+
+  async unFollow() {
+    const userUser: UserUser = {
+      userParentId: account.state.user.id,
+      userChildId: this.user.id,
+    };
+
+    await this.handleRequest(() => userLogic.unFollow(userUser));
+    this.succsess("Başarıyla Takipten Edildi.");
+    this.$emit("unfollowed");
+  }
+}
 </script>
 
 <style lang="scss">

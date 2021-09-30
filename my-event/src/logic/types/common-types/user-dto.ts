@@ -1,4 +1,5 @@
 import { EnumGender } from "@/logic/modules/users/types/enum-gender";
+import { UserUser } from "@/logic/modules/users/types/user-user";
 
 export interface UserDto {
   id?: any;
@@ -9,4 +10,6 @@ export interface UserDto {
   password: string;
   email: string;
   token: string;
+  iAmFriendsWith: UserUser[];
+  areFirendsWithMe: UserUser[];
 }
