@@ -17,8 +17,12 @@
           </div>
         </div>
         <div class="font-1 d-inline-flex gap-2">
-          <div>Takipçi: {{ followersCount }}</div>
-          <div>Takip: {{ followingCount }}</div>
+          <div @click="showFollowers" class="hoverable">
+            Takipçi: {{ followersCount }}
+          </div>
+          <div @click="showFollowing" class="hoverable">
+            Takip: {{ followingCount }}
+          </div>
           <co-button
             v-if="isVisibleUnFollowButton"
             @click="unFollow"
@@ -39,6 +43,11 @@
             textSize="10px"
             isOutline
           ></co-button>
+          <followers-modal v-model:value="isVisibleModal" :items="items" />
+          <following-modal
+            v-model:value="isVisibleModalFollowing"
+            :items="items"
+          />
         </div>
       </div>
     </div>
@@ -46,6 +55,9 @@
 </template>
 
 <script lang="ts">
+import FollowingModal from "./FollowingModal.vue";
+import CoList from "../common-components/CoList.vue";
+import FollowersModal from "./FollowersModal.vue";
 import CoButton from "../common-components/CoButton.vue";
 import { UserDto } from "@/logic/types/common-types/user-dto";
 import { PropType } from "@vue/runtime-core";
@@ -53,13 +65,18 @@ import { Options } from "vue-class-component";
 import BaseComponent from "../common-components/BaseComponent.vue";
 import { account } from "@/store/modules/users";
 import { userLogic } from "@/logic/modules/users/user-logic";
-import { UserUser } from "@/logic/modules/users/types/user-user";
+import { UserUserDto } from "@/logic/modules/users/types/user-user-dto";
 @Options({
-  components: { CoButton },
+  components: { CoButton, FollowersModal, CoList, FollowingModal },
   props: { user: Object as PropType<UserDto> },
 })
 export default class ProfileHeader extends BaseComponent {
   user!: UserDto;
+
+  isVisibleModal: Boolean = false;
+  isVisibleModalFollowing: Boolean = false;
+
+  items: UserUserDto[] = [];
 
   get isVisibleFollowButton() {
     return account.state.user.id != this.user.id;
@@ -80,7 +97,7 @@ export default class ProfileHeader extends BaseComponent {
   }
 
   async follow() {
-    const userUser: UserUser = {
+    const userUser: Pick<UserUserDto, "userParentId" | "userChildId"> = {
       userParentId: account.state.user.id,
       userChildId: this.user.id,
     };
@@ -93,7 +110,7 @@ export default class ProfileHeader extends BaseComponent {
   }
 
   async unFollow() {
-    const userUser: UserUser = {
+    const userUser: Pick<UserUserDto, "userChildId" | "userParentId"> = {
       userParentId: account.state.user.id,
       userChildId: this.user.id,
     };
@@ -101,6 +118,16 @@ export default class ProfileHeader extends BaseComponent {
     await this.handleRequest(() => userLogic.unFollow(userUser));
     this.succsess("Başarıyla Takipten Edildi.");
     this.$emit("unfollowed");
+  }
+
+  showFollowers() {
+    this.items = this.user.areFirendsWithMe;
+    this.isVisibleModal = true;
+  }
+
+  showFollowing() {
+    this.items = this.user.iAmFriendsWith;
+    this.isVisibleModalFollowing = true;
   }
 }
 </script>

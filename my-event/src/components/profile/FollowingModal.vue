@@ -1,6 +1,6 @@
 <template>
   <transition name="modal">
-    <modal v-if="value" @close="$emit('update:value')" header="Takipçiler">
+    <modal v-if="value" @close="$emit('update:value')" header="Takip">
       <co-list :items="items">
         <template #item="{ item }">
           <div class="d-flex align-items-center">
@@ -9,9 +9,9 @@
             </span>
             <div class="col-11">
               <div class="text-capitalize">
-                {{ item.userParent.firstName }} {{ item.userParent.lastName }}
+                {{ item.userChild.firstName }} {{ item.userChild.lastName }}
               </div>
-              <div>@{{ item.userParent.userName }}</div>
+              <div>@{{ item.userChild.userName }}</div>
             </div>
           </div>
         </template>
@@ -35,7 +35,7 @@ import { UserUserDto } from "@/logic/modules/users/types/user-user-dto";
   model: { prop: "value", value: "update:value" },
   emits: ["update:value"],
 })
-export default class FollowersModal extends BaseComponent {}
+export default class FollowingModal extends BaseComponent {}
 </script>
 
 <style>

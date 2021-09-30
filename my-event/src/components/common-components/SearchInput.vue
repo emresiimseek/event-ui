@@ -16,17 +16,21 @@
             border-bottom
             d-flex
             align-items-center
-            gap-2
             pb-1
-            hoverable
+            hoverable-gray
           "
         >
-          <i class="far fa-user-circle"></i>
-          <span class="font-1">
-            @{{ item.userName }} |
-            {{ item.firstName }}
-            {{ item.lastName }}
+          <span class="col-3 d-flex justify-content-center">
+            <i class="far fa-user-circle icon-fon-size-lg"></i>
           </span>
+
+          <div class="font-1 col-9">
+            <div>@{{ item.userName }}</div>
+            <div class="pl-2 text">
+              {{ item.firstName }}
+              {{ item.lastName }}
+            </div>
+          </div>
         </div>
       </div>
       <div v-else class="users-container text-center">
@@ -87,6 +91,5 @@ export default class Searctınput extends BaseComponent {
 
 .users-container {
   width: 350px;
-  padding: 20px;
 }
 </style>

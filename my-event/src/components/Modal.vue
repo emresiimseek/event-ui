@@ -7,8 +7,17 @@
       >
         <div class="modal-header bg-light p-0">
           <slot name="header">
-            <div class="d-flex flex-1 justify-content-end align-items-end mx-2">
-              <div class="flex-1"></div>
+            <div
+              class="
+                d-flex
+                flex-1
+                justify-content-end
+                align-items-end
+                mx-2
+                text-center
+              "
+            >
+              <div class="flex-1 bold-text">{{ header }}</div>
               <span @click="$emit('close')" class="hoverable">
                 <i class="fas fa-times"></i>
               </span>
@@ -41,6 +50,7 @@ import { Options, Vue } from "vue-class-component";
 @Options({
   components: { CoButton },
   props: {
+    header: String,
     width: { type: String, default: "500px" },
     height: { type: String, default: "500px" },
   },

@@ -6,12 +6,6 @@
     <div class="d-flex flex-row flex-1">
       <div class="card-container w-100 flex-1 justify-content-end p-3 d-flex">
         <div class="w-75">
-          <co-button
-            @click="showModal"
-            buttonText="Tıkla"
-            class="m-1"
-          ></co-button>
-          <followers-modal v-model:value="isVisible"></followers-modal>
           <co-card></co-card>
           <co-card></co-card>
           <co-card></co-card>
@@ -39,7 +33,6 @@
   </co-page-layout>
 </template>
 <script lang="ts" >
-import FollowersModal from "../components/profile/FollowersModal.vue";
 import CoButton from "../components/common-components/CoButton.vue";
 import FormInput from "../components/common-components/FormInput.vue";
 import CoPopover from "../components/common-components/CoPopover.vue";
@@ -58,7 +51,6 @@ import { account } from "@/store/modules/users";
     CoPageLayout,
     CoPopover,
     CoButton,
-    FollowersModal,
   },
 })
 export default class EventFlow extends BaseComponent {
