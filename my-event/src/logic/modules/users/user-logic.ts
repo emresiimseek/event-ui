@@ -1,7 +1,7 @@
 import { apiBase } from "@/logic/api/api-base";
 import { UserDto } from "@/logic/types/common-types/user-dto";
 import { UserProfileActivityDto } from "./types/user-profile-activity";
-import { UserUser } from "./types/user-user";
+import { UserUserDto } from "./types/user-user-dto";
 
 class UserLogic {
   getUserActivities = (userId: number) =>
@@ -13,11 +13,11 @@ class UserLogic {
     return apiBase.postRequest<UserDto[]>("users/SearchUser/", searchKey);
   }
 
-  follow(userUser: UserUser) {
-    return apiBase.postRequest<UserUser>("users/AddFriend", userUser);
+  follow(userUser: Pick<UserUserDto, "userChildId" | "userParentId">) {
+    return apiBase.postRequest<UserUserDto>("users/AddFriend", userUser);
   }
 
-  unFollow(userUser: UserUser) {
+  unFollow(userUser: Pick<UserUserDto, "userChildId" | "userParentId">) {
     return apiBase.postRequest("users/RemoveFriend", userUser);
   }
 }
