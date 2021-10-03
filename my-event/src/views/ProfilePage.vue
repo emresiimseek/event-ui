@@ -7,29 +7,13 @@
       @unfollowed="getUser"
     />
     <div class="card-container">
-      <co-card v-for="item in activities" :key="item.id">
-        <div
-          class="
-            fixed-bottom
-            position-absolute
-            bottom-0
-            border-top
-            p-1
-            text-capitalize
-            fill-height-10
-            d-flex
-            bg-light
-            flex-column
-            justify-content-around
-          "
+      <co-card v-for="item in activities" :key="item.id" class="mb-5">
+        <template #header>
+          <span class="text-capitalize">{{ item.title }}</span></template
         >
-          <div class="mx-2 d-inline-flex test">
-            <span class="flex-1 text-decoration-underline">
-              {{ item.title }}
-            </span>
-            <span> {{ item.eventDate }}</span>
-          </div>
-          <div class="mx-2">
+        <template> </template>
+        <template #footer>
+          <div class="d-flex">
             <span
               v-for="cat in item.categories"
               :key="cat.id"
@@ -37,8 +21,11 @@
             >
               {{ cat.title }}
             </span>
+            <span class="flex-1 text-end">
+              {{ dateTime(item.eventDate) }}
+            </span>
           </div>
-        </div>
+        </template>
       </co-card>
     </div>
   </co-page-layout>

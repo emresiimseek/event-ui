@@ -12,8 +12,10 @@ import { InputType } from "@/logic/types/common-types/input-type";
 import { UserDto } from "@/logic/types/common-types/user-dto";
 import { ValidationResponse } from "@/logic/modules/types/validation-response";
 import { ApiBaseResponse } from "@/logic/api/api-base";
+import { filters } from "@/logic/utilities/filters";
+import { account } from "@/store/modules/users";
 
-@Options({ components: {} })
+@Options({ components: {}, filters: {} })
 export default class BaseComponent extends Vue {
   loading: boolean = false;
   loadings: { [key: string]: boolean } = {};
@@ -26,6 +28,14 @@ export default class BaseComponent extends Vue {
 
   get isAnyLoading() {
     return this.loading || Object.values(this.loadings).some((l) => l);
+  }
+
+  get currentUserId() {
+    return account.state.user.id;
+  }
+
+  get dateTime() {
+    return (value: string) => filters.dateTime(value);
   }
 
   toast(type: ToastType, title: string, description?: string) {

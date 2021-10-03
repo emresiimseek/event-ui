@@ -1,6 +1,7 @@
 import { apiBase, ApiBaseResponse } from "@/logic/api/api-base";
 import { dateUtils } from "@/logic/utilities/date-utils";
 import { Activity } from "./types/activity";
+import { MainFlowUserActivityDto } from "./types/main-flow-user-activity-dto";
 
 class ActivityLogic {
   save(activity: Activity): Promise<ApiBaseResponse<Activity>> {
@@ -17,6 +18,11 @@ class ActivityLogic {
     description: "",
     userActivities: [],
   });
+
+  getFriendsEvents = (userId: number) =>
+    apiBase.getRequest<MainFlowUserActivityDto[]>(
+      "activities/GetAllFriendsActivities/" + userId
+    );
 }
 
 export const activityLogic = new ActivityLogic();

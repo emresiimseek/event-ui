@@ -24,7 +24,7 @@
             </div>
           </slot>
         </div>
-        <div class="modal-body">
+        <div class="modal-body m-0">
           <slot> </slot>
         </div>
 
@@ -34,6 +34,7 @@
               @click="save"
               buttonText="Kaydet"
               color="secondary"
+              isOutline
               buttonClasess="pt-0 pb-0"
               textSize="14px"
               class="m-0 mx-1"

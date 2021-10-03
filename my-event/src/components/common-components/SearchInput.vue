@@ -11,29 +11,33 @@
           @click="toProfile(item)"
           v-for="item in users"
           :key="item.id"
-          class="
-            flex-1
-            border-bottom
-            d-flex
-            align-items-center
-            pb-1
-            hoverable-gray
-          "
+          class="border-bottom hoverable-gray"
         >
-          <span class="col-3 d-flex justify-content-center">
-            <i class="far fa-user-circle icon-fon-size-lg"></i>
-          </span>
+          <div class="d-flex align-items-center pb-1">
+            <span class="col-3 d-flex justify-content-center p-2">
+              <i class="far fa-user-circle icon-fon-size-lg"></i>
+            </span>
 
-          <div class="font-1 col-9">
-            <div>@{{ item.userName }}</div>
-            <div class="pl-2 text">
-              {{ item.firstName }}
-              {{ item.lastName }}
+            <div class="font-1 col-9">
+              <div>@{{ item.userName }}</div>
+              <div class="pl-2 text">
+                {{ item.firstName }}
+                {{ item.lastName }}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div v-else class="users-container text-center">
+      <div
+        v-else
+        class="
+          empty-text-area
+          d-flex
+          align-items-center
+          justify-content-center
+          text-center
+        "
+      >
         <span class="font-0">Kayıt Bulunamadı.</span>
       </div>
     </template>
@@ -91,5 +95,12 @@ export default class Searctınput extends BaseComponent {
 
 .users-container {
   width: 350px;
+  min-height: 50px;
+}
+.empty-text-area {
+  width: 350px;
+  min-height: 100px;
+  text-shadow: 1px;
+  text-shadow: 1px 1px 5px #757474;
 }
 </style>

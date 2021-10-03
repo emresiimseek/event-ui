@@ -1,50 +1,59 @@
 <template>
-  <co-page-layout mainClass="flex-1 justify-content-center d-flex  p-4">
-    <div class="d-flex flex-column bg-light rounded gap-2 p-3">
-      <form-input
-        v-model:value="activity.title"
-        size="sm"
-        label="Başlık"
-        label-color="black"
-        :validations="validations"
-        fieldName="Title"
-        maxWidth="300px"
-      ></form-input>
-      <form-input
-        v-model:value="activity.description"
-        size="sm"
-        label="Açıklama"
-        label-color="black"
-        :validations="validations"
-        fieldName="Description"
-        maxWidth="300px"
-      ></form-input>
-      <form-input
-        v-model:value="activity.eventDate"
-        size="sm"
-        input-type="datetime-local"
-        label="Tarih"
-        label-color="black"
-        maxWidth="300px"
-        :fieldName="EventDate"
-        :validations="validations"
-      ></form-input>
-      <co-select
-        label="Kategiriler"
-        labelColor="black"
-        v-model:value="selectedCategory"
-        :items="items"
-      ></co-select>
-      <div class="d-flex justify-content-end mt-1">
-        <co-button
-          @click="saveActivity"
-          buttonText="Kaydet"
-          color="dark"
+  <co-page-layout
+    mainClass="flex-2 justify-content-center d-flex p-5"
+    leftClass="flex-1"
+    rightClass="flex-1"
+  >
+    <div class="d-flex flex-column w-100 bg-light rounded gap-2 p-5">
+      <div class="flex-1 text-center">
+        <h5>Etkinlinlik Oluştur</h5>
+      </div>
+
+      <div class="w-50 m-auto">
+        <form-input
+          v-model:value="activity.title"
           size="sm"
-          is-outline
-          :buttonLoading="isAnyLoading"
-          laodingColor="black"
-        />
+          label="Başlık"
+          label-color="black"
+          :validations="validations"
+          fieldName="Title"
+        ></form-input>
+        <form-input
+          v-model:value="activity.description"
+          input-type="text-area"
+          size="sm"
+          label="Açıklama"
+          label-color="black"
+          :validations="validations"
+          fieldName="Description"
+        ></form-input>
+        <form-input
+          v-model:value="activity.eventDate"
+          size="sm"
+          input-type="datetime-local"
+          label="Tarih"
+          label-color="black"
+          :fieldName="EventDate"
+          :validations="validations"
+        ></form-input>
+        <co-select
+          label="Kategiriler"
+          labelColor="black"
+          v-model:value="selectedCategory"
+          :items="items"
+        ></co-select>
+        <div class="d-flex justify-content-end mt-3">
+          <co-button
+            @click="saveActivity"
+            buttonText="Kaydet"
+            color="dark"
+            size="sm"
+            is-outline
+            :buttonLoading="isAnyLoading"
+            laodingColor="black"
+            textSize="14px"
+          />
+        </div>
       </div>
     </div>
   </co-page-layout>
@@ -77,9 +86,7 @@ import { account } from "@/store/modules/users";
 export default class NewEvent extends BaseComponent {
   value: number | null = null;
   items: SelectModel[] = [];
-
   selectedCategory: number = 0;
-
   activity: Activity = activityLogic.defaultModel();
 
   get userId() {

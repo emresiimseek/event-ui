@@ -4,7 +4,20 @@
       {{ label }}
     </div>
 
+    <textarea
+      v-if="inputType == 'text-area'"
+      :value="computedValue"
+      @input="onInput($event)"
+      class="form-control mb-1 w-100"
+      :style="{
+        maxWidth: maxWidth,
+        width: width,
+      }"
+    >
+    </textarea>
+
     <input
+      v-else
       :value="computedValue"
       :type="inputType"
       class="form-control co-input"
@@ -52,6 +65,7 @@ import BaseComponent from "./BaseComponent.vue";
     validations: Object,
     fieldName: String,
     maxWidth: String,
+    width: String,
   },
   components: { BaseComponent },
   model: { prop: "value", value: "input" },
