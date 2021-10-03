@@ -1,6 +1,12 @@
 <template>
-  <div class="border rounded card-container mb-3 position-relative bg-light">
-    <slot></slot>
+  <div class="card text-center">
+    <div class="card-header">
+      <slot name="header"></slot>
+    </div>
+    <div class="card-body">
+      <slot></slot>
+    </div>
+    <div class="card-footer text-muted"><slot name="footer"></slot></div>
   </div>
 </template>
 <script lang='ts'>
@@ -12,7 +18,7 @@ export default class CoCard extends BaseComponent {}
 </script>
 
 <style>
-.card-container {
-  height: 300px;
+.card-body {
+  min-height: 200px;
 }
 </style>

@@ -3,18 +3,13 @@
     mainClass="d-flex flex-1 justify-content-center fill-height"
     class="event-flow"
   >
-    <div class="d-flex flex-row flex-1">
-      <div class="card-container w-100 flex-1 justify-content-end p-3 d-flex">
-        <div class="w-75">
-          <co-card></co-card>
-          <co-card></co-card>
-          <co-card></co-card>
-          <co-card></co-card>
-          <co-card></co-card>
-          <co-card></co-card>
+    <div class="d-flex flex-row flex-1 mt-2">
+      <div class="card-container w-100 flex-1 justify-content-end p-1 d-flex">
+        <div class="w-60">
+          <friends-events />
         </div>
       </div>
-      <div class="pt-3 col-4 fixed-right-area">
+      <div class="pt-1 col-5 fixed-right-area">
         <div
           class="
             right-area
@@ -33,6 +28,7 @@
   </co-page-layout>
 </template>
 <script lang="ts" >
+import FriendsEvents from "../components/FriendsEvents.vue";
 import CoButton from "../components/common-components/CoButton.vue";
 import FormInput from "../components/common-components/FormInput.vue";
 import CoPopover from "../components/common-components/CoPopover.vue";
@@ -51,6 +47,7 @@ import { account } from "@/store/modules/users";
     CoPageLayout,
     CoPopover,
     CoButton,
+    FriendsEvents,
   },
 })
 export default class EventFlow extends BaseComponent {

@@ -1,8 +1,9 @@
 <template>
-  <div class="fill-height-10">
+  <div class="fill-height-8">
     <nav-bar class="w-100 fixed-top" />
   </div>
   <router-view :key="param" />
+
   <div
     class="
       fixed-bottom

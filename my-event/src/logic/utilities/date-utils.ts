@@ -10,6 +10,8 @@ class DateUtils {
   nowApi() {
     return new Date();
   }
+
+  
 }
 
 export const dateUtils = new DateUtils();
