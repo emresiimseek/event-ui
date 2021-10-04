@@ -10,7 +10,7 @@ class UserLogic {
     );
 
   searchUser(searchKey: string) {
-    return apiBase.postRequest<UserDto[]>("users/SearchUser/", searchKey);
+    return apiBase.postRequest<UserDto[]>("users/SearchUser/", searchKey, true);
   }
 
   follow(userUser: Pick<UserUserDto, "userChildId" | "userParentId">) {
